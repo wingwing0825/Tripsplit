@@ -361,6 +361,20 @@
     padding-top: max(10px, env(safe-area-inset-top));
     padding-bottom: max(14px, env(safe-area-inset-bottom));
   }
+  input[type="date"]{
+  padding-right: 44px !important;     /* 右邊留位 */
+  min-height: 44px;                   /* iOS 點擊友善 */
+}
+
+/* ✅ 防止日期 icon 被容器圓角/overflow 裁切 */
+.row, .card, .item, .splitBox{
+  overflow: visible;                  /* 你之前有些地方設了 hidden，會切 icon */
+}
+
+/* ✅ 如果你唔想全局 overflow visible，只針對新增頁 */
+#addCard .card, #addCard .item, #addCard .splitBox{
+  overflow: visible;
+}
 </style>
  
 </head>
@@ -691,7 +705,7 @@
 
     <div class="row" style="margin-top:10px;">
       <div>
-        <label>分類（分頁）</label>
+        <label>分類</label>
         <select id="edCategoryId"></select>
       </div>
       <div>
