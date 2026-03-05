@@ -389,31 +389,6 @@
   overflow: hidden !important;
 }
 
-/* ✅ Add page：欄位換行，避免細屏推爆 */
-#addCard .row{ flex-wrap: wrap; }
-#addCard .row > *{ min-width: 0; }
-
-@media (max-width:560px){
-  #addCard .row > *{
-    flex: 1 1 100% !important;
-  }
-}
-
-/* ✅ iOS 日期 input：留位俾日曆 icon + 不出框 */
-#addCard input[type="date"]{
-  width: 100% !important;
-  max-width: 100% !important;
-  padding-right: 64px !important;  /* 留位俾 icon */
-  min-height: 44px;
-  line-height: 22px;
-  overflow: hidden;                /* 令 indicator 唔會伸出 input */
-}
-
-/* ✅ iOS/Safari：把日曆按鈕縮返入去 */
-#addCard input[type="date"]::-webkit-calendar-picker-indicator{
-  padding: 10px;
-  margin-right: 6px;
-}
 </style>
  
 </head>
