@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  
   <title>TripSplit</title>
   <style>
     :root{
@@ -233,10 +234,116 @@
       .tabbtn{ padding:12px 8px; font-size:13px; }
       .badge{ max-width: 50vw; }
     }
+	 /* ===== Mobile Safe Base ===== */
+html, body{
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+*{ box-sizing: border-box; }
+
+img, video, canvas{
+  max-width: 100%;
+  height: auto;
+}
+
+:root{
+  --pad: 14px;
+  --radius: 18px;
+}
+
+.app, .wrap, .container, main{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+.safe{
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-bottom: max(14px, env(safe-area-inset-bottom));
+}
+
+@media (max-width: 560px){
+  :root{
+    --pad: 12px;
+  }
+
+  .app, .wrap, .container, main{
+    max-width: 100%;
+    padding: var(--pad);
+  }
+
+  .grid, .twoCol, .cols, .row, .layout, .panelRow{
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .topbar, header, .header, .top{
+    display: flex !important;
+    align-items: center;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+  }
+  .topbar > *, header > *{
+    max-width: 100%;
+  }
+
+  .pill, .badge, .chip{
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card, .panel, .box, .section{
+    border-radius: var(--radius);
+    padding: 12px !important;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  input, select, textarea{
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 16px;
+  }
+  button, .btn{
+    width: 100%;
+    max-width: 100%;
+    min-height: 44px;
+  }
+
+  .actions, .actionRow, .btnRow{
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .tripItem, .listItem, .tripCard{
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  .tripItem .right, .tripCard .right, .listItem .right{
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  .floating, .fab, .gearBtn{
+    right: 12px !important;
+    top: 12px !important;
+  }
+}
   </style>
+ 
 </head>
 
 <body>
+<div class="app safe">
 <header>
   <h1>
     🧾 TripSplit
@@ -404,11 +511,11 @@
 
     <div class="stepPane" id="step3">
       <div class="muted small" style="margin-top:8px;">
-        第三步：收據相片（可多張，會上傳到 Supabase Storage 並同步） + 確認新增。
+        第三步：收據相片。
       </div>
 
       <div style="margin-top:10px;">
-        <label>收據相片（可多張；同步）</label>
+        <label>收據相片</label>
         <input id="exReceipts" type="file" accept="image/*" multiple />
         <div class="muted small" id="receiptHint" style="margin-top:6px;"></div>
       </div>
@@ -1631,7 +1738,7 @@ async function renderAllList(){
         <div class="topline">
           <div>
             <div class="title">${escapeHtml(c.emoji||"🏷️")} ${escapeHtml(ex.title || "(未命名)")} ${warn}</div>
-            <div class="muted small">${escapeHtml(ex.date||"")} · 分類：${escapeHtml(c.name||"")} · 付款方:${escapeHtml(ex.payer||"")}</div>
+            <div class="muted small">${escapeHtml(ex.date||"")} · 分類：${escapeHtml(c.name||"")}  付款方:${escapeHtml(ex.payer||"")}</div>
           </div>
           <span class="pill">${baseAmt} ${trip.baseCurrency}</span>
         </div>
@@ -1718,7 +1825,7 @@ async function renderPersonPage(name){
         <div class="topline">
           <div>
             <div class="title">${escapeHtml(cat.emoji||"🏷️")} ${escapeHtml(ex.title || "(未命名)")}</div>
-            <div class="muted small">分類：${escapeHtml(cat.name||"")} · 收據 ${(ex.receipts||[]).length} 張</div>
+            <div class="muted small">分類：${escapeHtml(cat.name||"")} </div>
           </div>
           <span class="pill">整張單 ${ex.amount} ${ex.currency}</span>
         </div>
