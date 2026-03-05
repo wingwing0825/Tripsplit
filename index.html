@@ -421,6 +421,66 @@
     padding-top: max(10px, env(safe-area-inset-top));
     padding-bottom: max(14px, env(safe-area-inset-bottom));
   }
+  .dateField{
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.dateText{
+  flex: 1 1 auto;
+  width: 100%;
+  padding-right: 14px; /* 正常 padding */
+}
+
+/* 右邊日曆按鈕 */
+.dateBtn{
+  flex: 0 0 auto;
+  width: auto !important;        /* 抵消 mobile button{width:100%} */
+  padding: 10px 12px;
+  border-radius: 14px;
+  white-space: nowrap;
+}
+
+/* 原生 date input：保留但藏起來（唔會再被 iOS icon 咬框） */
+.dateField{
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.dateText{
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+/* 📅 只係外觀（真正點擊由透明 date input 接手） */
+.dateBtn{
+  flex: 0 0 auto;
+  width: auto !important;
+  padding: 10px 12px;
+  border-radius: 14px;
+  white-space: nowrap;
+  pointer-events: none; /* ✅ 重要：讓點擊落到透明 input */
+}
+
+/* ✅ 真正可點擊嘅原生 date input：透明疊喺📅位置 */
+.nativeDate{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 46px;          /* 覆蓋📅按鈕區 */
+  height: 44px;
+  opacity: 0.001;       /* 不能是 0（部分 iOS 會當不可互動） */
+  z-index: 5;
+  pointer-events: auto;
+  -webkit-appearance: none;
+
+}
 </style>
  
 </head>
@@ -538,9 +598,11 @@
         </div>
         <div>
           <label>日期</label>
-          <input id="exDate" type="date" />
-        </div>
-      </div>
+<div class="dateField">
+  <input id="exDateText" class="dateText" type="text" placeholder="YYYY-MM-DD" inputmode="numeric" autocomplete="off" />
+  <input id="exDate" class="nativeDate" type="date" />
+</div>
+	</div>
 
       <div class="row" style="margin-top:10px;">
         <div>
@@ -760,8 +822,10 @@
       </div>
       <div>
         <label>日期</label>
-        <input id="edDate" type="date" />
-      </div>
+<div class="dateField">
+  <input id="edDateText" class="dateText" type="text" placeholder="YYYY-MM-DD" inputmode="numeric" autocomplete="off" />
+  <input id="edDate" class="nativeDate" type="date" />
+</div>
     </div>
 
     <div class="row" style="margin-top:10px;">
@@ -939,6 +1003,77 @@ function escapeHtml(s){
     .replaceAll(">","&gt;")
     .replaceAll('"',"&quot;")
     .replaceAll("'","&#39;");
+}
+function isISODate(s){
+  return /^\d{4}-\d{2}-\d{2}$/.test(String(s||"").trim());
+}
+
+function syncDateText(nativeId, textId){
+  const n = document.getElementById(nativeId);
+  const t = document.getElementById(textId);
+  if(!n || !t) return;
+  t.value = n.value || "";
+}
+
+function setNativeDate(nativeId, textId, iso){
+  const n = document.getElementById(nativeId);
+  const t = document.getElementById(textId);
+  if(!n || !t) return;
+  n.value = iso || "";
+  t.value = iso || "";
+}
+
+function openNativePicker(nativeInput){
+  if(!nativeInput) return;
+  try{
+    // Chrome/部分 Safari 支援
+    if(typeof nativeInput.showPicker === "function"){
+      nativeInput.showPicker();
+      return;
+    }
+  }catch(e){}
+  // iOS Safari 常見：focus + click
+  try{ nativeInput.focus(); }catch(e){}
+  try{ nativeInput.click(); }catch(e){}
+}
+
+function mountCustomDate({ nativeId, textId, btnAttr }){
+  const native = document.getElementById(nativeId);
+  const text = document.getElementById(textId);
+  const btn = document.querySelector(`[data-datebtn="${btnAttr}"]`);
+  if(!native || !text || !btn) return;
+
+  // 初次同步
+  syncDateText(nativeId, textId);
+
+  // 點文字 or 點按鈕 -> 開 picker
+  const open = ()=> openNativePicker(native);
+  btn.addEventListener("click", open);
+  text.addEventListener("click", open);
+
+  // 原生 date 變更 -> 回寫到文字欄
+  native.addEventListener("change", ()=> syncDateText(nativeId, textId));
+
+  // 允許手打 YYYY-MM-DD
+  text.addEventListener("input", ()=>{
+    const v = text.value.trim();
+    if(isISODate(v)) native.value = v;
+  });
+  text.addEventListener("blur", ()=>{
+    const v = text.value.trim();
+    if(!v){ native.value=""; return; }
+    if(!isISODate(v)){
+      // 不合法就回復成 native
+      syncDateText(nativeId, textId);
+    }else{
+      native.value = v;
+    }
+  });
+}
+
+function initCustomDates(){
+  mountCustomDate({ nativeId:"exDate", textId:"exDateText", btnAttr:"exDate" });
+  mountCustomDate({ nativeId:"edDate", textId:"edDateText", btnAttr:"edDate" });
 }
 function uniq(arr){
   const out=[]; const set=new Set();
@@ -2209,6 +2344,7 @@ async function openEditExpense(expenseId){
 
   $("edTitle").value = ex.title || "";
   $("edDate").value = ex.date || todayISO();
+  syncDateText("edDate","edDateText"); // ✅ 加呢句
   $("edCurrency").value = ex.currency || trip.baseCurrency;
   $("edAmount").value = ex.amount ?? 0;
   $("edPayer").value = ex.payer || trip.members[0] || "";
@@ -2834,7 +2970,9 @@ $("editDeleteBtn").addEventListener("click", deleteEditExpense);
   await loadState();
   applyTabPrefs();
 
+   initCustomDates();                  // ✅ 加呢句（一定要）
   $("exDate").value = todayISO();
+  syncDateText("exDate","exDateText");// ✅ 加呢句
   updateHeaderBadge();
   updateStepperUI();
 
