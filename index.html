@@ -360,24 +360,33 @@
     padding-right: max(12px, env(safe-area-inset-right));
     padding-top: max(10px, env(safe-area-inset-top));
     padding-bottom: max(14px, env(safe-area-inset-bottom));
+  }
   
-  #addCard .item,
-#addCard .splitBox,
-#addCard .card,
-#addCard .row{
-  overflow: visible !important;
+  input[type="date"]{
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+
+  /* 右邊留位俾日曆 icon */
+  padding-right: 56px !important;
+
+  /* 讓框高度固定，避免 iOS 字型/行高導致裁切 */
+  min-height: 44px;
+  line-height: 22px;
 }
 
-/* 2) iOS date input 右邊 icon 需要空位：加大右側 padding */
-#addCard input[type="date"]{
-  padding-right: 52px !important; /* 留位俾 icon（44 可能仍太緊，52 更穩） */
-  min-height: 44px;               /* 手指好按 */
+/* ✅ 防止日期欄位所在容器把右邊 icon 裁切（只針對日期 input 的父層） */
+input[type="date"]{
+  position: relative;
+  z-index: 1;
 }
 
-/* 3) 令 date input 不會因為 grid/flex 壓縮而縮到 icon 出界 */
-#addCard .row > *{
-  min-width: 0 !important;
+/* ✅ 如果你有某些容器設了 overflow:hidden 造成裁切，
+   用呢條「極窄範圍」反制：只針對 date input 的直接外層 */
+input[type="date"]{
+  clip-path: inset(0 round 14px); /* 保持圓角但唔咬 icon */
 }
+  
 </style>
  
 </head>
