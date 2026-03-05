@@ -361,19 +361,22 @@
     padding-top: max(10px, env(safe-area-inset-top));
     padding-bottom: max(14px, env(safe-area-inset-bottom));
   }
-  input[type="date"]{
-  padding-right: 44px !important;     /* 右邊留位 */
-  min-height: 44px;                   /* iOS 點擊友善 */
+  #addCard .item,
+#addCard .splitBox,
+#addCard .card,
+#addCard .row{
+  overflow: visible !important;
 }
 
-/* ✅ 防止日期 icon 被容器圓角/overflow 裁切 */
-.row, .card, .item, .splitBox{
-  overflow: visible;                  /* 你之前有些地方設了 hidden，會切 icon */
+/* 2) iOS date input 右邊 icon 需要空位：加大右側 padding */
+#addCard input[type="date"]{
+  padding-right: 52px !important; /* 留位俾 icon（44 可能仍太緊，52 更穩） */
+  min-height: 44px;               /* 手指好按 */
 }
 
-/* ✅ 如果你唔想全局 overflow visible，只針對新增頁 */
-#addCard .card, #addCard .item, #addCard .splitBox{
-  overflow: visible;
+/* 3) 令 date input 不會因為 grid/flex 壓縮而縮到 icon 出界 */
+#addCard .row > *{
+  min-width: 0 !important;
 }
 </style>
  
