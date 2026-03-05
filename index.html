@@ -5,353 +5,412 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   
   <title>TripSplit</title>
-  <style>
-    :root{
-      --bg1:#fff7fb; --bg2:#f3fbff; --card:#ffffffcc;
-      --ink:#2b2b33; --muted:#6a6a78; --line:#e8e0ef;
-      --shadow: 0 10px 30px rgba(20,10,35,.08);
-      --pill:#ffe6f2; --pill2:#e7f7ff;
-      --good:#1f9d6a; --warn:#c07a00; --danger:#d14a4a;
-      --accent:#ff7bb0;
-      font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans TC","PingFang HK",sans-serif;
-    }
-    *{ -webkit-tap-highlight-color: transparent; }
-    body{
-      margin:0; color:var(--ink);
-      background:
-        radial-gradient(900px 500px at 10% 0%, var(--bg2), transparent 70%),
-        radial-gradient(900px 600px at 100% 10%, var(--bg1), transparent 70%),
-        linear-gradient(#fff, #fff);
-      min-height:100vh;
-    }
-    header{
-      position:sticky; top:0; z-index:50;
-      background: linear-gradient(90deg, #fff, #fff8fd);
-      border-bottom:1px solid var(--line);
-      padding:12px 14px;
-      padding-top: calc(10px + env(safe-area-inset-top));
-    }
-    h1{ margin:0; font-size:15px; display:flex; align-items:center; gap:10px; }
-    .badge{
-      display:inline-flex; align-items:center; gap:6px;
-      padding:6px 10px; border-radius:999px;
-      background: linear-gradient(90deg, var(--pill), var(--pill2));
-      border:1px solid var(--line);
-      font-size:12px; color:var(--muted);
-      max-width: 58vw; overflow:hidden; text-overflow: ellipsis; white-space: nowrap;
-    }
-    main{ padding:12px 14px 110px; max-width:980px; margin:0 auto; }
-
-    .card{
-      background:var(--card); backdrop-filter: blur(8px);
-      border:1px solid var(--line); border-radius:18px;
-      padding:12px; box-shadow: var(--shadow); margin:10px 0;
-    }
-    .row{ display:flex; gap:10px; flex-wrap:wrap; }
-    .row > *{ flex:1 1 160px; }
-    label{ display:block; font-size:12px; color:var(--muted); margin-bottom:6px; }
-    input,select,button,textarea{
-      width:100%; box-sizing:border-box;
-      border-radius:14px; border:1px solid var(--line);
-      padding:10px 11px; background:#fff; color:var(--ink);
-      outline:none; font-size:16px;
-    }
-    textarea{ min-height:54px; resize:vertical; }
-    button{
-      cursor:pointer;
-      background: linear-gradient(180deg, #fff, #fff6fb);
-      border:1px solid var(--line);
-      box-shadow: 0 6px 16px rgba(20,10,35,.06);
-      user-select:none;
-    }
-    button.primary{
-      background: linear-gradient(180deg, #ffd1e7, #fff);
-      border-color:#ffd1e7; font-weight:900;
-    }
-    button.ghost{ background:#fff; }
-    button.danger{
-      border-color:#ffd0d0;
-      background: linear-gradient(180deg, #fff, #fff7f7);
-      color: var(--danger); font-weight:900;
-    }
-    button:active{ transform: translateY(1px); }
-
-    .tabs{
-      position:fixed; bottom:0; left:0; right:0; z-index:60;
-      background: linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,.96));
-      backdrop-filter: blur(12px);
-      border-top:1px solid var(--line);
-      display:flex; gap:10px; padding:10px 10px;
-      padding-bottom: calc(10px + env(safe-area-inset-bottom));
-    }
-    .tabbtn{ flex:1; border-radius:16px; padding:12px 10px; font-weight:900; }
-    .tabbtn .emoji{ margin-right:6px; }
-
-    .muted{ color:var(--muted); }
-    .small{ font-size:12px; }
-    .warnText{ color:var(--warn); font-weight:900; }
-    .mono{ font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
-    .pill{
-      display:inline-block; padding:6px 10px; border-radius:999px;
-      border:1px solid var(--line);
-      background: linear-gradient(90deg, var(--pill), var(--pill2));
-      font-size:12px; color:var(--muted); white-space:nowrap;
-    }
-    .list{ display:flex; flex-direction:column; gap:10px; }
-    .item{
-      border:1px dashed #e9d7ea; background:#fff;
-      border-radius:18px; padding:12px;
-      box-shadow: 0 8px 18px rgba(20,10,35,.05);
-    }
-    .topline{ display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
-    .title{ font-weight:900; }
-    .grid2{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
-    @media(max-width:560px){ .grid2{ grid-template-columns:1fr; } }
-
-    .splitBox{
-      border:1px solid var(--line);
-      border-radius:18px; padding:12px;
-      background: linear-gradient(180deg, #fff, #fff8fd);
-      margin-top:10px;
-    }
-    .chipRow{ display:flex; flex-wrap:wrap; gap:8px; }
-    .chip{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 10px; border-radius:999px;
-      border:1px solid var(--line); background:#fff;
-      font-size:13px; user-select:none;
-    }
-    .chip input{ width:auto; }
-    .hr{ height:1px; background:var(--line); margin:10px 0; border-radius:999px; }
-
-    .stepper{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
-    .step{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 10px; border-radius:999px;
-      border:1px solid var(--line); background:#fff;
-      font-size:13px; color:var(--muted); user-select:none;
-    }
-    .step.active{
-      background: linear-gradient(90deg, var(--pill), var(--pill2));
-      border-color:#f3d6e6; color:var(--ink); font-weight:900;
-    }
-    .stepPane{ display:none; }
-    .stepPane.show{ display:block; }
-    .wizNav{ display:flex; gap:10px; margin-top:10px; }
-    .wizNav button{ flex:1; }
-
-    .thumbs{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
-    .thumb{
-      width:86px; height:86px;
-      border-radius:16px;
-      object-fit:cover;
-      border:1px solid var(--line);
-      display:block;
-      background:#fff;
-      cursor:pointer;
-    }
-
-    /* Category Tabs */
-    .catTabs{
-      display:flex; gap:8px; flex-wrap:wrap;
-      margin-top:10px;
-    }
-    .catTab{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:#fff;
-      font-size:13px;
-      cursor:pointer;
-      user-select:none;
-      box-shadow: 0 6px 16px rgba(20,10,35,.04);
-    }
-    .catTab.active{
-      background: linear-gradient(90deg, var(--pill), var(--pill2));
-      border-color:#f3d6e6;
-      font-weight:900;
-    }
-
-    /* ===== Modal ===== */
-    .modalMask{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.28);
-      display:none;
-      align-items:center; justify-content:center;
-      z-index:120;
-      padding:14px;
-    }
-    .modal{
-      width:min(980px, 100%);
-      max-height: calc(100vh - 28px);
-      overflow:auto;
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:18px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.25);
-      padding:12px;
-    }
-    .modal .hr{ margin:12px 0; }
-
-    .miniThumbWrap{
-      display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;
-    }
-    .miniThumb{
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:8px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      background:#fff;
-    }
-    .miniThumb img{ width:72px; height:72px; border-radius:14px; object-fit:cover; border:1px solid var(--line); }
-
-    .catManageRow{
-      display:flex; gap:10px; flex-wrap:wrap;
-      align-items:flex-end;
-      margin-top:10px;
-    }
-    .catManageRow > *{ flex:1 1 180px; }
-    .catList{
-      display:flex; flex-direction:column; gap:10px;
-      margin-top:10px;
-    }
-    .catLine{
-      border:1px dashed #e9d7ea;
-      border-radius:16px;
-      padding:10px;
-      background:#fff;
-      display:flex; gap:10px; flex-wrap:wrap;
-      align-items:center;
-    }
-    .catLine .btnSmall{ width:auto; padding:10px 12px; border-radius:14px; }
-
-    @media(max-width:560px){
-      main{ padding-left:12px; padding-right:12px; }
-      .row > *{ flex:1 1 100%; }
-      .tabbtn{ padding:12px 8px; font-size:13px; }
-      .badge{ max-width: 50vw; }
-    }
-	 /* ===== Mobile Safe Base ===== */
-html, body{
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-*{ box-sizing: border-box; }
-
-img, video, canvas{
-  max-width: 100%;
-  height: auto;
-}
-
-:root{
-  --pad: 14px;
-  --radius: 18px;
-}
-
-.app, .wrap, .container, main{
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 18px;
-}
-
-.safe{
-  padding-left: max(12px, env(safe-area-inset-left));
-  padding-right: max(12px, env(safe-area-inset-right));
-  padding-top: max(10px, env(safe-area-inset-top));
-  padding-bottom: max(14px, env(safe-area-inset-bottom));
-}
-
-@media (max-width: 560px){
+<style>
   :root{
-    --pad: 12px;
+    --bg1:#fff7fb; --bg2:#f3fbff; --card:#ffffffcc;
+    --ink:#2b2b33; --muted:#6a6a78; --line:#e8e0ef;
+    --shadow: 0 10px 30px rgba(20,10,35,.08);
+    --pill:#ffe6f2; --pill2:#e7f7ff;
+    --good:#1f9d6a; --warn:#c07a00; --danger:#d14a4a;
+    --accent:#ff7bb0;
+    font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans TC","PingFang HK",sans-serif;
+  }
+  *{ -webkit-tap-highlight-color: transparent; }
+
+  body{
+    margin:0; color:var(--ink);
+    background:
+      radial-gradient(900px 500px at 10% 0%, var(--bg2), transparent 70%),
+      radial-gradient(900px 600px at 100% 10%, var(--bg1), transparent 70%),
+      linear-gradient(#fff, #fff);
+    min-height:100vh;
+  }
+
+  header{
+    position:sticky; top:0; z-index:50;
+    background: linear-gradient(90deg, #fff, #fff8fd);
+    border-bottom:1px solid var(--line);
+    padding:12px 14px;
+    padding-top: calc(10px + env(safe-area-inset-top));
+  }
+
+  h1{ margin:0; font-size:15px; }
+
+  .hdr{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .hdrLeft{
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .appTitle{
+    font-weight:900;
+    font-size:15px;
+    line-height:1.2;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .gearBtn{
+    width:auto;
+    padding:8px 10px;
+    border-radius:999px;
+    flex:0 0 auto;
+  }
+
+  .badge{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:6px 10px; border-radius:999px;
+    background: linear-gradient(90deg, var(--pill), var(--pill2));
+    border:1px solid var(--line);
+    font-size:12px; color:var(--muted);
+    max-width: min(70vw, 520px);
+    overflow:hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+
+  main{ padding:12px 14px 110px; max-width:980px; margin:0 auto; }
+
+  .card{
+    background:var(--card); backdrop-filter: blur(8px);
+    border:1px solid var(--line); border-radius:18px;
+    padding:12px; box-shadow: var(--shadow); margin:10px 0;
+  }
+  .row{ display:flex; gap:10px; flex-wrap:wrap; }
+  .row > *{ flex:1 1 160px; }
+  label{ display:block; font-size:12px; color:var(--muted); margin-bottom:6px; }
+
+  input,select,button,textarea{
+    width:100%; box-sizing:border-box;
+    border-radius:14px; border:1px solid var(--line);
+    padding:10px 11px; background:#fff; color:var(--ink);
+    outline:none; font-size:16px;
+  }
+  textarea{ min-height:54px; resize:vertical; }
+
+  button{
+    cursor:pointer;
+    background: linear-gradient(180deg, #fff, #fff6fb);
+    border:1px solid var(--line);
+    box-shadow: 0 6px 16px rgba(20,10,35,.06);
+    user-select:none;
+  }
+  button.primary{
+    background: linear-gradient(180deg, #ffd1e7, #fff);
+    border-color:#ffd1e7; font-weight:900;
+  }
+  button.ghost{ background:#fff; }
+  button.danger{
+    border-color:#ffd0d0;
+    background: linear-gradient(180deg, #fff, #fff7f7);
+    color: var(--danger); font-weight:900;
+  }
+  button:active{ transform: translateY(1px); }
+
+  .tabs{
+    position:fixed; bottom:0; left:0; right:0; z-index:60;
+    background: linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,.96));
+    backdrop-filter: blur(12px);
+    border-top:1px solid var(--line);
+    display:flex; gap:10px; padding:10px 10px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  }
+  .tabbtn{ flex:1; border-radius:16px; padding:12px 10px; font-weight:900; }
+  .tabbtn .emoji{ margin-right:6px; }
+
+  .muted{ color:var(--muted); }
+  .small{ font-size:12px; }
+  .warnText{ color:var(--warn); font-weight:900; }
+  .mono{ font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+
+  .pill{
+    display:inline-block; padding:6px 10px; border-radius:999px;
+    border:1px solid var(--line);
+    background: linear-gradient(90deg, var(--pill), var(--pill2));
+    font-size:12px; color:var(--muted); white-space:nowrap;
+  }
+  .list{ display:flex; flex-direction:column; gap:10px; }
+  .item{
+    border:1px dashed #e9d7ea; background:#fff;
+    border-radius:18px; padding:12px;
+    box-shadow: 0 8px 18px rgba(20,10,35,.05);
+  }
+  .topline{ display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+  .title{ font-weight:900; }
+  .grid2{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+  @media(max-width:560px){ .grid2{ grid-template-columns:1fr; } }
+
+  .splitBox{
+    border:1px solid var(--line);
+    border-radius:18px; padding:12px;
+    background: linear-gradient(180deg, #fff, #fff8fd);
+    margin-top:10px;
+  }
+  .chipRow{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 10px; border-radius:999px;
+    border:1px solid var(--line); background:#fff;
+    font-size:13px; user-select:none;
+  }
+  .chip input{ width:auto; }
+  .hr{ height:1px; background:var(--line); margin:10px 0; border-radius:999px; }
+
+  .stepper{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+  .step{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 10px; border-radius:999px;
+    border:1px solid var(--line); background:#fff;
+    font-size:13px; color:var(--muted); user-select:none;
+  }
+  .step.active{
+    background: linear-gradient(90deg, var(--pill), var(--pill2));
+    border-color:#f3d6e6; color:var(--ink); font-weight:900;
+  }
+  .stepPane{ display:none; }
+  .stepPane.show{ display:block; }
+  .wizNav{ display:flex; gap:10px; margin-top:10px; }
+  .wizNav button{ flex:1; }
+
+  .thumbs{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+  .thumb{
+    width:86px; height:86px;
+    border-radius:16px;
+    object-fit:cover;
+    border:1px solid var(--line);
+    display:block;
+    background:#fff;
+    cursor:pointer;
+  }
+
+  .catTabs{
+    display:flex; gap:8px; flex-wrap:wrap;
+    margin-top:10px;
+  }
+  .catTab{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 12px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:#fff;
+    font-size:13px;
+    cursor:pointer;
+    user-select:none;
+    box-shadow: 0 6px 16px rgba(20,10,35,.04);
+  }
+  .catTab.active{
+    background: linear-gradient(90deg, var(--pill), var(--pill2));
+    border-color:#f3d6e6;
+    font-weight:900;
+  }
+
+  .modalMask{
+    position:fixed; inset:0;
+    background: rgba(0,0,0,.28);
+    display:none;
+    align-items:center; justify-content:center;
+    z-index:120;
+    padding:14px;
+  }
+  .modal{
+    width:min(980px, 100%);
+    max-height: calc(100vh - 28px);
+    overflow:auto;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:18px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    padding:12px;
+  }
+  .modal .hr{ margin:12px 0; }
+
+  .miniThumbWrap{
+    display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;
+  }
+  .miniThumb{
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:8px;
+    display:flex;
+    gap:10px;
+    align-items:center;
+    background:#fff;
+  }
+  .miniThumb img{ width:72px; height:72px; border-radius:14px; object-fit:cover; border:1px solid var(--line); }
+
+  .catManageRow{
+    display:flex; gap:10px; flex-wrap:wrap;
+    align-items:flex-end;
+    margin-top:10px;
+  }
+  .catManageRow > *{ flex:1 1 180px; }
+  .catList{
+    display:flex; flex-direction:column; gap:10px;
+    margin-top:10px;
+  }
+  .catLine{
+    border:1px dashed #e9d7ea;
+    border-radius:16px;
+    padding:10px;
+    background:#fff;
+    display:flex; gap:10px; flex-wrap:wrap;
+    align-items:center;
+  }
+  .catLine .btnSmall{ width:auto; padding:10px 12px; border-radius:14px; }
+
+  @media(max-width:560px){
+    main{ padding-left:12px; padding-right:12px; }
+    .row > *{ flex:1 1 100%; }
+    .tabbtn{ padding:12px 8px; font-size:13px; }
+
+    .hdr{ flex-wrap:wrap; }
+    .hdrLeft{ flex:1 1 260px; }
+    .gearBtn{ margin-left:auto; }
+    .badge{ max-width:100%; }
+  }
+
+  /* ===== Mobile Safe Base ===== */
+  html, body{
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  *{ box-sizing: border-box; }
+
+  img, video, canvas{
+    max-width: 100%;
+    height: auto;
+  }
+
+  :root{
+    --pad: 14px;
+    --radius: 18px;
   }
 
   .app, .wrap, .container, main{
-    max-width: 100%;
-    padding: var(--pad);
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 18px;
   }
 
-  .grid, .twoCol, .cols, .row, .layout, .panelRow{
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
+  .safe{
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+    padding-top: max(10px, env(safe-area-inset-top));
+    padding-bottom: max(14px, env(safe-area-inset-bottom));
   }
 
-  .topbar, header, .header, .top{
-    display: flex !important;
-    align-items: center;
-    flex-wrap: wrap !important;
-    gap: 10px !important;
-  }
-  .topbar > *, header > *{
-    max-width: 100%;
+  @media (max-width: 560px){
+    :root{ --pad: 12px; }
+
+    .app, .wrap, .container, main{
+      max-width: 100%;
+      padding: var(--pad);
+    }
+
+    .grid, .twoCol, .cols, .row, .layout, .panelRow{
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 10px !important;
+    }
+
+    .topbar, .header, .top{
+      display: flex !important;
+      align-items: center;
+      flex-wrap: wrap !important;
+      gap: 10px !important;
+    }
+    .topbar > *, .header > *{ max-width: 100%; }
+
+    .pill, .badge, .chip{
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card, .panel, .box, .section{
+      border-radius: var(--radius);
+      padding: 12px !important;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    input, select, textarea{
+      width: 100% !important;
+      max-width: 100% !important;
+      font-size: 16px;
+    }
+    button, .btn{
+      width: 100%;
+      max-width: 100%;
+      min-height: 44px;
+    }
+
+    .actions, .actionRow, .btnRow{
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 10px !important;
+    }
+
+    .tripItem, .listItem, .tripCard{
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 10px !important;
+    }
+    .tripItem .right, .tripCard .right, .listItem .right{
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 10px !important;
+    }
+
+    .floating, .fab, .gearBtn{
+      right: 12px !important;
+      top: 12px !important;
+    }
   }
 
-  .pill, .badge, .chip{
-    max-width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  /* ✅✅✅ Live FX collapsible：放喺所有 @media 外面先會穩 */
+  .fxCardHeader{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
   }
+  .fxToggle{
+    width:auto !important;        /* ✅ 抵消 mobile: button{width:100%} */
+    padding:8px 10px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .fxBody{ margin-top:10px; }
+  .fxBody.isCollapsed{ display:none; }
 
-  .card, .panel, .box, .section{
-    border-radius: var(--radius);
-    padding: 12px !important;
-    max-width: 100%;
-    overflow: hidden;
+  .fxChevron{
+    display:inline-block;
+    transition: transform .18s ease;
+    margin-right:6px;
   }
-
-  input, select, textarea{
-    width: 100% !important;
-    max-width: 100% !important;
-    font-size: 16px;
-  }
-  button, .btn{
-    width: 100%;
-    max-width: 100%;
-    min-height: 44px;
-  }
-
-  .actions, .actionRow, .btnRow{
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
-  }
-
-  .tripItem, .listItem, .tripCard{
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
-  }
-  .tripItem .right, .tripCard .right, .listItem .right{
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 10px !important;
-  }
-
-  .floating, .fab, .gearBtn{
-    right: 12px !important;
-    top: 12px !important;
-  }
-}
-  </style>
+  .fxToggle[aria-expanded="false"] .fxChevron{ transform: rotate(-90deg); }
+</style>
  
 </head>
 
 <body>
 <div class="app safe">
 <header>
-  <h1>
-    🧾 TripSplit
-    <span class="badge" id="whereBadge">未選行程 · 先去「行程」建立 / 加入</span>
-    <button class="ghost" id="openSettingsBtn" style="width:auto; padding:8px 10px; border-radius:999px;">⚙️</button>
-  </h1>
+  <div class="hdr">
+    <div class="hdrLeft">
+      <div class="appTitle">🧾 TripSplit</div>
+      <span class="badge" id="whereBadge">未選行程 · 先去「行程」建立 / 加入</span>
+    </div>
+    <button class="ghost gearBtn" id="openSettingsBtn" aria-label="設定">⚙️</button>
+  </div>
 </header>
-
 <main>
   <!-- Trips -->
   <section class="card" id="tripsCard">
@@ -521,7 +580,7 @@ img, video, canvas{
       </div>
 
       <div class="row" style="margin-top:10px;">
-        <button class="primary" id="addExpenseBtn">✅ 新增開支（同步）</button>
+        <button class="primary" id="addExpenseBtn">✅ 新增開支</button>
         <button class="ghost" id="resetExpenseBtn">🧽 清空表單</button>
       </div>
 
@@ -601,11 +660,11 @@ img, video, canvas{
   <section class="card" id="allCard" style="display:none;">
     <div class="topline">
       <div>
-        <div class="title">🧁 全部消費（同步）</div>
+        <div class="title">🧁 全部消費</div>
         <div class="muted small">分類分頁 + 快速搜尋；每筆可「編輯」。</div>
       </div>
       <div style="min-width:180px;">
-        <button class="danger" id="wipeTripBtn">🗑️ 清空此行程資料（同步）</button>
+        <button class="danger" id="wipeTripBtn">🗑️ 清空此行程資料</button>
       </div>
     </div>
 
@@ -1290,34 +1349,61 @@ function receiptsThumbsHtml(receipts){
 /* =========================
    Live FX UI + apply (sync)
 ========================= */
+
+
+
+
+
+
 function fxUIHtml(trip){
-  const rateBD = getOverrideRate(trip.baseCurrency, trip.displayCurrency, trip.id);
   const ui = ensureTripUI(trip.id);
   const draft = ui.fxDraft || { from:trip.baseCurrency, to:trip.displayCurrency, rate:"" };
 
+  const hasSetMain = (getOverrideRate(trip.baseCurrency, trip.displayCurrency, trip.id) != null);
+  const hasSetAnyDraft = (draft.from && draft.to && draft.from !== draft.to && Number(draft.rate) > 0);
+  const hasAnyFx = hasSetMain || hasSetAnyDraft;
+
+  const collapsed = (typeof ui.fxCollapsed === "boolean")
+    ? ui.fxCollapsed
+    : (hasAnyFx ? true : false);
+
+  const expanded = !collapsed;
+
   return `
     <div class="item" style="border-style:solid;">
-      <div class="title">💱 Live FX</div>
-      <div class="muted small" style="margin-top:6px;">
-        <br/>修改 FROM/TO/Rate 會即時重算 + 同步到所有人。
+      <div class="fxCardHeader">
+        <div class="title">💱 Live FX</div>
+        <button class="ghost fxToggle" id="fxToggleBtn"
+                aria-expanded="${expanded ? "true" : "false"}"
+                type="button">
+          <span class="fxChevron">▾</span>
+          ${expanded ? "摺疊" : "顯示"}
+        </button>
       </div>
 
-      <div class="row" style="margin-top:10px;">
-        <div>
-          <label>FROM</label>
-          <select id="fxFrom">${CURRS.map(c=>`<option value="${c}">${c}</option>`).join("")}</select>
+      <!-- ✅ 注意：由呢度開始全部放入 fxBody，摺疊會連提示+輸入+目前 一齊收起 -->
+      <div class="fxBody ${collapsed ? "isCollapsed" : ""}" id="fxBody">
+        <div class="muted small" style="margin-top:6px;">
+          修改 FROM/TO/Rate 會即時重算 + 同步到所有人。
         </div>
-        <div>
-          <label>TO</label>
-          <select id="fxTo">${CURRS.map(c=>`<option value="${c}">${c}</option>`).join("")}</select>
-        </div>
-        <div>
-          <label>匯率（1 FROM = ? TO）</label>
-          <input id="fxRate" type="number" min="0" step="0.000001" placeholder="例如：0.25" />
-        </div>
-      </div>
 
-      <div class="muted small" id="fxOverrideHint" style="margin-top:8px;"></div>
+        <div class="row" style="margin-top:10px;">
+          <div>
+            <label>FROM</label>
+            <select id="fxFrom">${CURRS.map(c=>`<option value="${c}">${c}</option>`).join("")}</select>
+          </div>
+          <div>
+            <label>TO</label>
+            <select id="fxTo">${CURRS.map(c=>`<option value="${c}">${c}</option>`).join("")}</select>
+          </div>
+          <div>
+            <label>匯率（1 FROM = ? TO）</label>
+            <input id="fxRate" type="number" min="0" step="0.000001" placeholder="例如：0.25" />
+          </div>
+        </div>
+
+        <div class="muted small" id="fxOverrideHint" style="margin-top:8px;"></div>
+      </div>
     </div>
   `;
 }
@@ -1336,6 +1422,8 @@ const applyFxLiveDebounced = debounce(async ()=>{
 
   if(from && to && from !== to && isFinite(rate) && rate > 0){
     setFxPairConsistent(trip.id, from, to, rate);
+	ui.fxCollapsed = true;
+state.tripUI[trip.id] = ui;
     await saveState();
 
     await recomputeAllFxForTrip(trip.id);
@@ -1372,6 +1460,10 @@ function showFxOverrideHint(){
   }
 }
 
+
+
+
+
 function mountFxUI(){
   const trip = getActiveTrip();
   if(!trip) return;
@@ -1379,8 +1471,35 @@ function mountFxUI(){
   $("fxMount").innerHTML = fxUIHtml(trip);
 
   const ui = ensureTripUI(trip.id);
-  const draft = ui.fxDraft || { from: trip.baseCurrency, to: trip.displayCurrency, rate:"" };
 
+  // Toggle bind
+  const tbtn = $("fxToggleBtn");
+  const body = $("fxBody");
+  if(tbtn && body){
+    tbtn.addEventListener("click", async ()=>{
+      const isCollapsed = body.classList.toggle("isCollapsed");
+      tbtn.setAttribute("aria-expanded", isCollapsed ? "false" : "true");
+      tbtn.innerHTML = `<span class="fxChevron">▾</span> ${isCollapsed ? "顯示" : "摺疊"}`;
+
+      ui.fxCollapsed = isCollapsed;
+      state.tripUI[trip.id] = ui;
+      await saveState();
+
+      // 展開後要補回 select/input 值 + 事件
+      if(!isCollapsed){
+        // 重新 mount 一次最乾淨（確保 From/To/Rate 事件完整）
+        mountFxUI();
+      }
+    });
+  }
+
+  // 如果 body 摺咗，就唔綁 input events
+  if(body && body.classList.contains("isCollapsed")){
+    return;
+  }
+
+  // set default values
+  const draft = ui.fxDraft || { from: trip.baseCurrency, to: trip.displayCurrency, rate:"" };
   $("fxFrom").value = draft.from || trip.baseCurrency;
   $("fxTo").value = draft.to || trip.displayCurrency;
   if(draft.rate !== "" && draft.rate != null) $("fxRate").value = String(draft.rate);
@@ -1738,7 +1857,7 @@ async function renderAllList(){
         <div class="topline">
           <div>
             <div class="title">${escapeHtml(c.emoji||"🏷️")} ${escapeHtml(ex.title || "(未命名)")} ${warn}</div>
-            <div class="muted small">${escapeHtml(ex.date||"")} · 分類：${escapeHtml(c.name||"")}  付款方:${escapeHtml(ex.payer||"")}</div>
+            <div class="muted small">${escapeHtml(ex.date||"")} · 分類:${escapeHtml(c.name||"")} · 付款方:${escapeHtml(ex.payer||"")}</div>
           </div>
           <span class="pill">${baseAmt} ${trip.baseCurrency}</span>
         </div>
@@ -2633,7 +2752,7 @@ $("addExpenseBtn").addEventListener("click", async ()=>{
   if(receiptFiles.length){
     try{
       receipts = await uploadReceiptsToStorage({ tripId: trip.id, expenseId: exId, files: receiptFiles });
-      $("receiptHint").textContent = `✅ 已上傳 ${receipts.length} 張（會同步）`;
+      $("receiptHint").textContent = `✅ 已上傳 ${receipts.length} 張`;
     }catch(err){
       console.error(err);
       alert("⚠️ 收據上傳失敗：請檢查 Storage bucket/policy。");
