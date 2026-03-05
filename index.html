@@ -15,7 +15,13 @@
     --accent:#ff7bb0;
     font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans TC","PingFang HK",sans-serif;
   }
-  *{ -webkit-tap-highlight-color: transparent; }
+  *{ -webkit-tap-highlight-color: transparent; box-sizing:border-box; }
+
+  html, body{
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
 
   body{
     margin:0; color:var(--ink);
@@ -25,6 +31,8 @@
       linear-gradient(#fff, #fff);
     min-height:100vh;
   }
+
+  img, video, canvas{ max-width:100%; height:auto; }
 
   header{
     position:sticky; top:0; z-index:50;
@@ -71,6 +79,7 @@
     font-size:12px; color:var(--muted);
     max-width: min(70vw, 520px);
     overflow:hidden; text-overflow: ellipsis; white-space: nowrap;
+    min-width:0;
   }
 
   main{ padding:12px 14px 110px; max-width:980px; margin:0 auto; }
@@ -79,17 +88,21 @@
     background:var(--card); backdrop-filter: blur(8px);
     border:1px solid var(--line); border-radius:18px;
     padding:12px; box-shadow: var(--shadow); margin:10px 0;
+    overflow:hidden;
   }
+
   .row{ display:flex; gap:10px; flex-wrap:wrap; }
-  .row > *{ flex:1 1 160px; }
+  .row > *{ flex:1 1 160px; min-width:0; }
+
   label{ display:block; font-size:12px; color:var(--muted); margin-bottom:6px; }
 
   input,select,button,textarea{
-    width:100%; box-sizing:border-box;
+    width:100%;
     border-radius:14px; border:1px solid var(--line);
     padding:10px 11px; background:#fff; color:var(--ink);
     outline:none; font-size:16px;
   }
+
   textarea{ min-height:54px; resize:vertical; }
 
   button{
@@ -122,25 +135,45 @@
   .tabbtn{ flex:1; border-radius:16px; padding:12px 10px; font-weight:900; }
   .tabbtn .emoji{ margin-right:6px; }
 
-  .muted{ color:var(--muted); }
+  .muted{ color:var(--muted); min-width:0; }
   .small{ font-size:12px; }
   .warnText{ color:var(--warn); font-weight:900; }
-  .mono{ font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+
+  /* ✅ Trip Code / 長字串可斷行（解決你張圖唔換行） */
+  .mono{
+    font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
 
   .pill{
     display:inline-block; padding:6px 10px; border-radius:999px;
     border:1px solid var(--line);
     background: linear-gradient(90deg, var(--pill), var(--pill2));
     font-size:12px; color:var(--muted); white-space:nowrap;
+    max-width:100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
   }
+
   .list{ display:flex; flex-direction:column; gap:10px; }
   .item{
     border:1px dashed #e9d7ea; background:#fff;
     border-radius:18px; padding:12px;
     box-shadow: 0 8px 18px rgba(20,10,35,.05);
+    overflow:hidden;
   }
-  .topline{ display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:flex-start;
+  }
+
   .title{ font-weight:900; }
+
   .grid2{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
   @media(max-width:560px){ .grid2{ grid-template-columns:1fr; } }
 
@@ -150,14 +183,17 @@
     background: linear-gradient(180deg, #fff, #fff8fd);
     margin-top:10px;
   }
+
   .chipRow{ display:flex; flex-wrap:wrap; gap:8px; }
   .chip{
     display:inline-flex; align-items:center; gap:8px;
     padding:8px 10px; border-radius:999px;
     border:1px solid var(--line); background:#fff;
     font-size:13px; user-select:none;
+    max-width:100%;
   }
   .chip input{ width:auto; }
+
   .hr{ height:1px; background:var(--line); margin:10px 0; border-radius:999px; }
 
   .stepper{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
@@ -171,8 +207,10 @@
     background: linear-gradient(90deg, var(--pill), var(--pill2));
     border-color:#f3d6e6; color:var(--ink); font-weight:900;
   }
+
   .stepPane{ display:none; }
   .stepPane.show{ display:block; }
+
   .wizNav{ display:flex; gap:10px; margin-top:10px; }
   .wizNav button{ flex:1; }
 
@@ -187,10 +225,7 @@
     cursor:pointer;
   }
 
-  .catTabs{
-    display:flex; gap:8px; flex-wrap:wrap;
-    margin-top:10px;
-  }
+  .catTabs{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
   .catTab{
     display:inline-flex; align-items:center; gap:8px;
     padding:8px 12px;
@@ -201,6 +236,7 @@
     cursor:pointer;
     user-select:none;
     box-shadow: 0 6px 16px rgba(20,10,35,.04);
+    max-width:100%;
   }
   .catTab.active{
     background: linear-gradient(90deg, var(--pill), var(--pill2));
@@ -228,9 +264,7 @@
   }
   .modal .hr{ margin:12px 0; }
 
-  .miniThumbWrap{
-    display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;
-  }
+  .miniThumbWrap{ display:flex; flex-wrap:wrap; gap:10px; margin-top:8px; }
   .miniThumb{
     border:1px solid var(--line);
     border-radius:16px;
@@ -239,19 +273,22 @@
     gap:10px;
     align-items:center;
     background:#fff;
+    max-width:100%;
   }
-  .miniThumb img{ width:72px; height:72px; border-radius:14px; object-fit:cover; border:1px solid var(--line); }
+  .miniThumb img{
+    width:72px; height:72px;
+    border-radius:14px;
+    object-fit:cover;
+    border:1px solid var(--line);
+  }
 
   .catManageRow{
     display:flex; gap:10px; flex-wrap:wrap;
     align-items:flex-end;
     margin-top:10px;
   }
-  .catManageRow > *{ flex:1 1 180px; }
-  .catList{
-    display:flex; flex-direction:column; gap:10px;
-    margin-top:10px;
-  }
+  .catManageRow > *{ flex:1 1 180px; min-width:0; }
+  .catList{ display:flex; flex-direction:column; gap:10px; margin-top:10px; }
   .catLine{
     border:1px dashed #e9d7ea;
     border-radius:16px;
@@ -262,6 +299,29 @@
   }
   .catLine .btnSmall{ width:auto; padding:10px 12px; border-radius:14px; }
 
+  /* ===== Live FX collapsible（✅ 必須在所有 @media 外） ===== */
+  .fxCardHeader{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .fxToggle{
+    width:auto !important;         /* ✅ 抵消手機 button{width:100%} */
+    padding:8px 10px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .fxBody{ margin-top:10px; }
+  .fxBody.isCollapsed{ display:none; }
+  .fxChevron{
+    display:inline-block;
+    transition: transform .18s ease;
+    margin-right:6px;
+  }
+  .fxToggle[aria-expanded="false"] .fxChevron{ transform: rotate(-90deg); }
+
+  /* ===== Mobile tweaks ===== */
   @media(max-width:560px){
     main{ padding-left:12px; padding-right:12px; }
     .row > *{ flex:1 1 100%; }
@@ -271,131 +331,36 @@
     .hdrLeft{ flex:1 1 260px; }
     .gearBtn{ margin-left:auto; }
     .badge{ max-width:100%; }
+
+    /* ✅ Trips list：右邊按鈕唔再被切半 */
+    #tripsList .topline{
+      flex-direction: column !important;
+      align-items: stretch !important;
+    }
+    #tripsList .topline > div{
+      width: 100% !important;
+      min-width: 0 !important;
+    }
+    #tripsList .topline > div[style*="min-width:180px"]{
+      min-width: 0 !important;
+      width: 100% !important;
+    }
+
+    /* ✅ Trips page：避免你原本把 .row 強制 grid 搞亂（只針對 tripsCard） */
+    #tripsCard .row{
+      display:flex !important;
+      flex-direction:column !important;
+      gap:10px !important;
+    }
   }
 
-  /* ===== Mobile Safe Base ===== */
-  html, body{
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-  *{ box-sizing: border-box; }
-
-  img, video, canvas{
-    max-width: 100%;
-    height: auto;
-  }
-
-  :root{
-    --pad: 14px;
-    --radius: 18px;
-  }
-
-  .app, .wrap, .container, main{
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 18px;
-  }
-
+  /* ===== Safe area padding helper（你 body 內有 .app.safe 用） ===== */
   .safe{
     padding-left: max(12px, env(safe-area-inset-left));
     padding-right: max(12px, env(safe-area-inset-right));
     padding-top: max(10px, env(safe-area-inset-top));
     padding-bottom: max(14px, env(safe-area-inset-bottom));
   }
-
-  @media (max-width: 560px){
-    :root{ --pad: 12px; }
-
-    .app, .wrap, .container, main{
-      max-width: 100%;
-      padding: var(--pad);
-    }
-
-    .grid, .twoCol, .cols, .row, .layout, .panelRow{
-      display: grid !important;
-      grid-template-columns: 1fr !important;
-      gap: 10px !important;
-    }
-
-    .topbar, .header, .top{
-      display: flex !important;
-      align-items: center;
-      flex-wrap: wrap !important;
-      gap: 10px !important;
-    }
-    .topbar > *, .header > *{ max-width: 100%; }
-
-    .pill, .badge, .chip{
-      max-width: 100%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .card, .panel, .box, .section{
-      border-radius: var(--radius);
-      padding: 12px !important;
-      max-width: 100%;
-      overflow: hidden;
-    }
-
-    input, select, textarea{
-      width: 100% !important;
-      max-width: 100% !important;
-      font-size: 16px;
-    }
-    button, .btn{
-      width: 100%;
-      max-width: 100%;
-      min-height: 44px;
-    }
-
-    .actions, .actionRow, .btnRow{
-      display: grid !important;
-      grid-template-columns: 1fr !important;
-      gap: 10px !important;
-    }
-
-    .tripItem, .listItem, .tripCard{
-      display: grid !important;
-      grid-template-columns: 1fr !important;
-      gap: 10px !important;
-    }
-    .tripItem .right, .tripCard .right, .listItem .right{
-      display: grid !important;
-      grid-template-columns: 1fr 1fr !important;
-      gap: 10px !important;
-    }
-
-    .floating, .fab, .gearBtn{
-      right: 12px !important;
-      top: 12px !important;
-    }
-  }
-
-  /* ✅✅✅ Live FX collapsible：放喺所有 @media 外面先會穩 */
-  .fxCardHeader{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-  }
-  .fxToggle{
-    width:auto !important;        /* ✅ 抵消 mobile: button{width:100%} */
-    padding:8px 10px;
-    border-radius:999px;
-    white-space:nowrap;
-  }
-  .fxBody{ margin-top:10px; }
-  .fxBody.isCollapsed{ display:none; }
-
-  .fxChevron{
-    display:inline-block;
-    transition: transform .18s ease;
-    margin-right:6px;
-  }
-  .fxToggle[aria-expanded="false"] .fxChevron{ transform: rotate(-90deg); }
 </style>
  
 </head>
