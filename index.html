@@ -15,7 +15,6 @@
     --accent:#ff7bb0;
     font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans TC","PingFang HK",sans-serif;
   }
-
   *{ -webkit-tap-highlight-color: transparent; box-sizing:border-box; }
 
   html, body{
@@ -35,7 +34,6 @@
 
   img, video, canvas{ max-width:100%; height:auto; }
 
-  /* ===== Header ===== */
   header{
     position:sticky; top:0; z-index:50;
     background: linear-gradient(90deg, #fff, #fff8fd);
@@ -43,6 +41,7 @@
     padding:12px 14px;
     padding-top: calc(10px + env(safe-area-inset-top));
   }
+
   h1{ margin:0; font-size:15px; }
 
   .hdr{
@@ -85,16 +84,11 @@
 
   main{ padding:12px 14px 110px; max-width:980px; margin:0 auto; }
 
-  /* ===== Cards / layout ===== */
   .card{
-    background:var(--card);
-    backdrop-filter: blur(8px);
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:12px;
-    box-shadow: var(--shadow);
-    margin:10px 0;
-    overflow:hidden; /* 預設收口：唔畀內容出界 */
+    background:var(--card); backdrop-filter: blur(8px);
+    border:1px solid var(--line); border-radius:18px;
+    padding:12px; box-shadow: var(--shadow); margin:10px 0;
+    overflow:hidden; /* ✅ 保留（防出界），但新增頁會另外解除 */
   }
 
   .row{ display:flex; gap:10px; flex-wrap:wrap; }
@@ -104,14 +98,11 @@
 
   input,select,button,textarea{
     width:100%;
-    border-radius:14px;
-    border:1px solid var(--line);
-    padding:10px 11px;
-    background:#fff;
-    color:var(--ink);
-    outline:none;
-    font-size:16px;
+    border-radius:14px; border:1px solid var(--line);
+    padding:10px 11px; background:#fff; color:var(--ink);
+    outline:none; font-size:16px;
   }
+
   textarea{ min-height:54px; resize:vertical; }
 
   button{
@@ -123,19 +114,16 @@
   }
   button.primary{
     background: linear-gradient(180deg, #ffd1e7, #fff);
-    border-color:#ffd1e7;
-    font-weight:900;
+    border-color:#ffd1e7; font-weight:900;
   }
   button.ghost{ background:#fff; }
   button.danger{
     border-color:#ffd0d0;
     background: linear-gradient(180deg, #fff, #fff7f7);
-    color: var(--danger);
-    font-weight:900;
+    color: var(--danger); font-weight:900;
   }
   button:active{ transform: translateY(1px); }
 
-  /* ===== Bottom tabs ===== */
   .tabs{
     position:fixed; bottom:0; left:0; right:0; z-index:60;
     background: linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,.96));
@@ -160,26 +148,19 @@
   }
 
   .pill{
-    display:inline-block;
-    padding:6px 10px;
-    border-radius:999px;
+    display:inline-block; padding:6px 10px; border-radius:999px;
     border:1px solid var(--line);
     background: linear-gradient(90deg, var(--pill), var(--pill2));
-    font-size:12px;
-    color:var(--muted);
-    white-space:nowrap;
+    font-size:12px; color:var(--muted); white-space:nowrap;
     max-width:100%;
     overflow:hidden;
     text-overflow:ellipsis;
   }
 
   .list{ display:flex; flex-direction:column; gap:10px; }
-
   .item{
-    border:1px dashed #e9d7ea;
-    background:#fff;
-    border-radius:18px;
-    padding:12px;
+    border:1px dashed #e9d7ea; background:#fff;
+    border-radius:18px; padding:12px;
     box-shadow: 0 8px 18px rgba(20,10,35,.05);
     overflow:hidden;
   }
@@ -198,8 +179,7 @@
 
   .splitBox{
     border:1px solid var(--line);
-    border-radius:18px;
-    padding:12px;
+    border-radius:18px; padding:12px;
     background: linear-gradient(180deg, #fff, #fff8fd);
     margin-top:10px;
     overflow:hidden;
@@ -208,12 +188,9 @@
   .chipRow{ display:flex; flex-wrap:wrap; gap:8px; }
   .chip{
     display:inline-flex; align-items:center; gap:8px;
-    padding:8px 10px;
-    border-radius:999px;
-    border:1px solid var(--line);
-    background:#fff;
-    font-size:13px;
-    user-select:none;
+    padding:8px 10px; border-radius:999px;
+    border:1px solid var(--line); background:#fff;
+    font-size:13px; user-select:none;
     max-width:100%;
   }
   .chip input{ width:auto; }
@@ -223,19 +200,13 @@
   .stepper{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
   .step{
     display:inline-flex; align-items:center; gap:8px;
-    padding:8px 10px;
-    border-radius:999px;
-    border:1px solid var(--line);
-    background:#fff;
-    font-size:13px;
-    color:var(--muted);
-    user-select:none;
+    padding:8px 10px; border-radius:999px;
+    border:1px solid var(--line); background:#fff;
+    font-size:13px; color:var(--muted); user-select:none;
   }
   .step.active{
     background: linear-gradient(90deg, var(--pill), var(--pill2));
-    border-color:#f3d6e6;
-    color:var(--ink);
-    font-weight:900;
+    border-color:#f3d6e6; color:var(--ink); font-weight:900;
   }
 
   .stepPane{ display:none; }
@@ -255,7 +226,6 @@
     cursor:pointer;
   }
 
-  /* ===== Category Tabs ===== */
   .catTabs{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
   .catTab{
     display:inline-flex; align-items:center; gap:8px;
@@ -275,7 +245,6 @@
     font-weight:900;
   }
 
-  /* ===== Modals ===== */
   .modalMask{
     position:fixed; inset:0;
     background: rgba(0,0,0,.28);
@@ -331,7 +300,7 @@
   }
   .catLine .btnSmall{ width:auto; padding:10px 12px; border-radius:14px; }
 
-  /* ===== Live FX collapsible（放喺所有 @media 外） ===== */
+  /* ===== Live FX collapsible（必須在所有 @media 外） ===== */
   .fxCardHeader{
     display:flex;
     align-items:center;
@@ -339,7 +308,7 @@
     gap:10px;
   }
   .fxToggle{
-    width:auto !important;           /* 抵消手機 button{width:100%} */
+    width:auto !important;
     padding:8px 10px;
     border-radius:999px;
     white-space:nowrap;
@@ -353,28 +322,15 @@
   }
   .fxToggle[aria-expanded="false"] .fxChevron{ transform: rotate(-90deg); }
 
-  /* =========================
-     ✅ Add 頁：iOS 日期 input 修正（重點）
-     1) Add card 保持收口（hidden）
-     2) input 自己 overflow hidden + padding-right 留 icon 位
-     3) 手機：一行一格避免第三格太窄
-  ========================= */
-  #addCard{
-    overflow:hidden !important; /* Add頁收口，唔畀 icon 走出界 */
-  }
-  #addCard .row > *{ min-width:0; }
-  #addCard input[type="date"]{
-    width:100% !important;
-    max-width:100% !important;
-    padding-right:64px !important;
+  /* ✅ iOS 日期 input：固定框架 + 留右邊 icon 位 */
+  input[type="date"]{
+    padding-right:56px !important;
     min-height:44px;
     line-height:22px;
-    overflow:hidden;
+    position: relative;
+    z-index: 1;
   }
-  #addCard input[type="date"]::-webkit-calendar-picker-indicator{
-    padding:10px;
-    margin-right:6px;
-  }
+
 
   /* ===== Mobile tweaks ===== */
   @media(max-width:560px){
@@ -401,85 +357,62 @@
       width: 100% !important;
     }
 
-    /* Trips card：row 保持 flex */
+    /* Trips card：row 保持 flex（唔畀其他 CSS 改成 grid） */
     #tripsCard .row{
       display:flex !important;
       flex-direction:column !important;
       gap:10px !important;
     }
-
-    /* Add頁：手機時一行一格，避免日期欄太窄導致 icon/文字被咬 */
-    #addCard .row > *{
-      flex: 1 1 100% !important;
-    }
   }
 
-  /* ===== Safe area helper ===== */
+  /* Safe area padding helper */
   .safe{
     padding-left: max(12px, env(safe-area-inset-left));
     padding-right: max(12px, env(safe-area-inset-right));
     padding-top: max(10px, env(safe-area-inset-top));
     padding-bottom: max(14px, env(safe-area-inset-bottom));
   }
-  .dateField{
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
+  #addCard{
+  overflow: visible !important;
 }
 
-.dateText{
-  flex: 1 1 auto;
-  width: 100%;
-  padding-right: 14px; /* 正常 padding */
+
+/* ✅ iOS date：留 icon 位 + 避免文字/控件高度怪 */
+#addCard input[type="date"]{
+  padding-right: 56px !important;
+  min-height: 44px;
+  line-height: 22px;
 }
 
-/* 右邊日曆按鈕 */
-.dateBtn{
-  flex: 0 0 auto;
-  width: auto !important;        /* 抵消 mobile button{width:100%} */
-  padding: 10px 12px;
-  border-radius: 14px;
-  white-space: nowrap;
+/* ✅ Add page：保持卡片收口，唔畀任何野出界 */
+#addCard{
+  overflow: hidden !important;
 }
 
-/* 原生 date input：保留但藏起來（唔會再被 iOS icon 咬框） */
-.dateField{
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
+/* ✅ Add page：欄位換行，避免細屏推爆 */
+#addCard .row{ flex-wrap: wrap; }
+#addCard .row > *{ min-width: 0; }
+
+@media (max-width:560px){
+  #addCard .row > *{
+    flex: 1 1 100% !important;
+  }
 }
 
-.dateText{
-  flex: 1 1 auto;
-  width: 100%;
+/* ✅ iOS 日期 input：留位俾日曆 icon + 不出框 */
+#addCard input[type="date"]{
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-right: 64px !important;  /* 留位俾 icon */
+  min-height: 44px;
+  line-height: 22px;
+  overflow: hidden;                /* 令 indicator 唔會伸出 input */
 }
 
-/* 📅 只係外觀（真正點擊由透明 date input 接手） */
-.dateBtn{
-  flex: 0 0 auto;
-  width: auto !important;
-  padding: 10px 12px;
-  border-radius: 14px;
-  white-space: nowrap;
-  pointer-events: none; /* ✅ 重要：讓點擊落到透明 input */
-}
-
-/* ✅ 真正可點擊嘅原生 date input：透明疊喺📅位置 */
-.nativeDate{
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 46px;          /* 覆蓋📅按鈕區 */
-  height: 44px;
-  opacity: 0.001;       /* 不能是 0（部分 iOS 會當不可互動） */
-  z-index: 5;
-  pointer-events: auto;
-  -webkit-appearance: none;
-
+/* ✅ iOS/Safari：把日曆按鈕縮返入去 */
+#addCard input[type="date"]::-webkit-calendar-picker-indicator{
+  padding: 10px;
+  margin-right: 6px;
 }
 </style>
  
@@ -598,11 +531,9 @@
         </div>
         <div>
           <label>日期</label>
-<div class="dateField">
-  <input id="exDateText" class="dateText" type="text" placeholder="YYYY-MM-DD" inputmode="numeric" autocomplete="off" />
-  <input id="exDate" class="nativeDate" type="date" />
-</div>
-	</div>
+          <input id="exDate" type="date" />
+        </div>
+      </div>
 
       <div class="row" style="margin-top:10px;">
         <div>
@@ -822,10 +753,8 @@
       </div>
       <div>
         <label>日期</label>
-<div class="dateField">
-  <input id="edDateText" class="dateText" type="text" placeholder="YYYY-MM-DD" inputmode="numeric" autocomplete="off" />
-  <input id="edDate" class="nativeDate" type="date" />
-</div>
+        <input id="edDate" type="date" />
+      </div>
     </div>
 
     <div class="row" style="margin-top:10px;">
@@ -1003,77 +932,6 @@ function escapeHtml(s){
     .replaceAll(">","&gt;")
     .replaceAll('"',"&quot;")
     .replaceAll("'","&#39;");
-}
-function isISODate(s){
-  return /^\d{4}-\d{2}-\d{2}$/.test(String(s||"").trim());
-}
-
-function syncDateText(nativeId, textId){
-  const n = document.getElementById(nativeId);
-  const t = document.getElementById(textId);
-  if(!n || !t) return;
-  t.value = n.value || "";
-}
-
-function setNativeDate(nativeId, textId, iso){
-  const n = document.getElementById(nativeId);
-  const t = document.getElementById(textId);
-  if(!n || !t) return;
-  n.value = iso || "";
-  t.value = iso || "";
-}
-
-function openNativePicker(nativeInput){
-  if(!nativeInput) return;
-  try{
-    // Chrome/部分 Safari 支援
-    if(typeof nativeInput.showPicker === "function"){
-      nativeInput.showPicker();
-      return;
-    }
-  }catch(e){}
-  // iOS Safari 常見：focus + click
-  try{ nativeInput.focus(); }catch(e){}
-  try{ nativeInput.click(); }catch(e){}
-}
-
-function mountCustomDate({ nativeId, textId, btnAttr }){
-  const native = document.getElementById(nativeId);
-  const text = document.getElementById(textId);
-  const btn = document.querySelector(`[data-datebtn="${btnAttr}"]`);
-  if(!native || !text || !btn) return;
-
-  // 初次同步
-  syncDateText(nativeId, textId);
-
-  // 點文字 or 點按鈕 -> 開 picker
-  const open = ()=> openNativePicker(native);
-  btn.addEventListener("click", open);
-  text.addEventListener("click", open);
-
-  // 原生 date 變更 -> 回寫到文字欄
-  native.addEventListener("change", ()=> syncDateText(nativeId, textId));
-
-  // 允許手打 YYYY-MM-DD
-  text.addEventListener("input", ()=>{
-    const v = text.value.trim();
-    if(isISODate(v)) native.value = v;
-  });
-  text.addEventListener("blur", ()=>{
-    const v = text.value.trim();
-    if(!v){ native.value=""; return; }
-    if(!isISODate(v)){
-      // 不合法就回復成 native
-      syncDateText(nativeId, textId);
-    }else{
-      native.value = v;
-    }
-  });
-}
-
-function initCustomDates(){
-  mountCustomDate({ nativeId:"exDate", textId:"exDateText", btnAttr:"exDate" });
-  mountCustomDate({ nativeId:"edDate", textId:"edDateText", btnAttr:"edDate" });
 }
 function uniq(arr){
   const out=[]; const set=new Set();
@@ -2344,7 +2202,6 @@ async function openEditExpense(expenseId){
 
   $("edTitle").value = ex.title || "";
   $("edDate").value = ex.date || todayISO();
-  syncDateText("edDate","edDateText"); // ✅ 加呢句
   $("edCurrency").value = ex.currency || trip.baseCurrency;
   $("edAmount").value = ex.amount ?? 0;
   $("edPayer").value = ex.payer || trip.members[0] || "";
@@ -2970,9 +2827,7 @@ $("editDeleteBtn").addEventListener("click", deleteEditExpense);
   await loadState();
   applyTabPrefs();
 
-   initCustomDates();                  // ✅ 加呢句（一定要）
   $("exDate").value = todayISO();
-  syncDateText("exDate","exDateText");// ✅ 加呢句
   updateHeaderBadge();
   updateStepperUI();
 
