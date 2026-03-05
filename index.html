@@ -376,6 +376,25 @@
     padding-top: max(10px, env(safe-area-inset-top));
     padding-bottom: max(14px, env(safe-area-inset-bottom));
   }
+  #addCard{
+  overflow: visible !important;
+}
+
+/* 有時 iOS 會再被內層剪到，順手保險 */
+#addCard .stepPane,
+#addCard .row,
+#addCard .row > div,
+#addCard .splitBox,
+#addCard .item{
+  overflow: visible !important;
+}
+
+/* ✅ iOS date：留 icon 位 + 避免文字/控件高度怪 */
+#addCard input[type="date"]{
+  padding-right: 56px !important;
+  min-height: 44px;
+  line-height: 22px;
+}
 </style>
  
 </head>
