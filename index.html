@@ -681,6 +681,18 @@
     <div class="title">🏷️ 分類分頁</div>
     <div class="catTabs" id="personCatTabs"></div>
     <div class="muted small" id="personCatHint" style="margin-top:6px;"></div>
+	
+	<div class="row" style="margin-top:10px;">
+  <div>
+    <label>此分類總額（基準）</label>
+    <input id="personCatTotalBase" disabled />
+  </div>
+  <div>
+    <label>此分類總額（換算）</label>
+    <input id="personCatTotalDisp" disabled />
+  </div>
+</div>
+<div class="muted small" id="personCatTotalHint" style="margin-top:6px;"></div>
 
     <div class="hr"></div>
 
@@ -692,8 +704,8 @@
   <section class="card" id="allCard" style="display:none;">
     <div class="topline">
       <div>
-        <div class="title">🧁 全部消費</div>
-        <div class="muted small">分類分頁 + 快速搜尋；每筆可「編輯」。</div>
+        <div class="title">🧁全部消費</div>
+        <div class="muted small">統計所有消費</div>
       </div>
       <div style="min-width:180px;">
         <button class="danger" id="wipeTripBtn">🗑️ 清空此行程資料</button>
@@ -723,6 +735,19 @@
     <div class="title">🏷️ 分類分頁</div>
     <div class="catTabs" id="allCatTabs"></div>
     <div class="muted small" id="allCatHint" style="margin-top:6px;"></div>
+
+<div class="row" style="margin-top:10px;">
+  <div>
+    <label>此分類總額（基準）</label>
+    <input id="allCatTotalBase" disabled />
+  </div>
+  <div>
+    <label>此分類總額（換算）</label>
+    <input id="allCatTotalDisp" disabled />
+  </div>
+</div>
+<div class="muted small" id="allCatTotalHint" style="margin-top:6px;"></div>
+
 
     <div class="row" style="margin-top:10px;">
       <div>
@@ -1330,6 +1355,85 @@ function calcPersonShareTotalBase(tripId, person){
   return round2(total);
 }
 
+
+/* =========================
+   Category Totals (All / Person)
+========================= */
+function calcCategoryTotalBase_All(tripId, catId){
+  const exps = getTripExpenses(tripId);
+  let sum = 0;
+  for(const ex of exps){
+    if(catId !== "ALL" && (ex.categoryId || "") !== catId) continue;
+    // 用已換算到基準的 baseAmount（最準）
+    sum += safeNum(ex.fxBase?.baseAmount ?? ex.amount);
+  }
+  return round2(sum);
+}
+
+// Person：只統計「此人份額」在該分類的合計（比計整張單更合理）
+function calcCategoryTotalBase_Person(tripId, person, catId){
+  const exps = getTripExpenses(tripId);
+  let sum = 0;
+  for(const ex of exps){
+    if(catId !== "ALL" && (ex.categoryId || "") !== catId) continue;
+
+    const inParticipants = Array.isArray(ex.participants) && ex.participants.includes(person);
+    const hasShare = ex.shares && Object.prototype.hasOwnProperty.call(ex.shares, person) && safeNum(ex.shares[person]) > 0;
+    if(!(inParticipants && hasShare)) continue;
+
+    // 份額是「原幣」，要乘 rateBase 才變基準
+    const rateBase = safeNum(ex.fxBase?.rateBase ?? 1);
+    sum += safeNum(ex.shares[person]) * rateBase;
+  }
+  return round2(sum);
+}
+
+function setCatTotals_AllUI(){
+  const trip = getActiveTrip(); if(!trip) return;
+  const catId = state.filters.allCategoryId || "ALL";
+
+  const baseTotal = calcCategoryTotalBase_All(trip.id, catId);
+  $("allCatTotalBase").value = `${baseTotal} ${trip.baseCurrency}`;
+
+  const fx = getBaseToDisplayRate(trip);
+  if(fx.ok){
+    $("allCatTotalDisp").value = `${round2(baseTotal * fx.rate)} ${fx.disp}`;
+    $("allCatTotalHint").textContent =
+      catId==="ALL"
+        ? `全部分類合計 · 換算：1 ${trip.baseCurrency} = ${fx.rate} ${fx.disp}`
+        : `此分類合計 · 換算：1 ${trip.baseCurrency} = ${fx.rate} ${fx.disp}`;
+  }else{
+    $("allCatTotalDisp").value = `— ${trip.displayCurrency}`;
+    $("allCatTotalHint").innerHTML = `<span class="warnText">⚠️ 未設定換算匯率</span>：${trip.baseCurrency}→${trip.displayCurrency}`;
+  }
+}
+
+function setCatTotals_PersonUI(){
+  const trip = getActiveTrip(); if(!trip) return;
+  const person = $("personSelect")?.value || "";
+  if(!person) return;
+
+  const catId = state.filters.personCategoryId || "ALL";
+  const baseTotal = calcCategoryTotalBase_Person(trip.id, person, catId);
+  $("personCatTotalBase").value = `${baseTotal} ${trip.baseCurrency}`;
+
+  const dispCur = $("displayCurrencyInPerson").value || trip.displayCurrency;
+  const fx = getBaseToDisplayRate(trip, dispCur);
+  if(fx.ok){
+    $("personCatTotalDisp").value = `${round2(baseTotal * fx.rate)} ${fx.disp}`;
+    $("personCatTotalHint").textContent =
+      catId==="ALL"
+        ? `（${person}）全部分類份額合計 · 換算：1 ${trip.baseCurrency} = ${fx.rate} ${fx.disp}`
+        : `（${person}）此分類份額合計 · 換算：1 ${trip.baseCurrency} = ${fx.rate} ${fx.disp}`;
+  }else{
+    $("personCatTotalDisp").value = `— ${dispCur}`;
+    $("personCatTotalHint").innerHTML = `<span class="warnText">⚠️ 未設定換算匯率</span>：${trip.baseCurrency}→${dispCur}`;
+  }
+}
+
+
+
+
 /* =========================
    Viewer
 ========================= */
@@ -1909,6 +2013,7 @@ async function renderAllList(){
     `;
   });
   $("allList").innerHTML = html.join("") || `<div class="muted">未有消費記錄。</div>`;
+  setCatTotals_AllUI();
 }
 
 async function renderPersonPage(name){
@@ -1996,6 +2101,7 @@ async function renderPersonPage(name){
     : `顯示：${ci.emoji} ${ci.name}`;
 
   $("personList").innerHTML = items.join("") || `<div class="muted">（${escapeHtml(name)} 暫時未有任何份額 / 或此分類下沒有）</div>`;
+  setCatTotals_PersonUI();
 }
 
 async function recalcAndRepaintAll(){
