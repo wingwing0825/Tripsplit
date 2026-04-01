@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   
   <title>TripSplit</title>
+  <link rel="icon" type="image/png" href="Tripsplit.png" />
 <style>
   :root{
     --bg1:#fff7fb; --bg2:#f3fbff; --card:#ffffffcc;
@@ -64,6 +65,13 @@
     align-items:center;
     gap:10px;
   }
+  .appLogo{
+    width:24px;
+    height:24px;
+    display:block;
+    object-fit:contain;
+    flex:0 0 24px;
+  }
   .gearBtn{
     width:auto;
     padding:8px 10px;
@@ -88,7 +96,7 @@
     background:var(--card); backdrop-filter: blur(8px);
     border:1px solid var(--line); border-radius:18px;
     padding:12px; box-shadow: var(--shadow); margin:10px 0;
-    overflow:hidden; /* ✅ 保留（防出界），但新增頁會另外解除 */
+    overflow:hidden; /* ??靽?嚗?箇?嚗?雿憓??憭圾??*/
   }
 
   .row{ display:flex; gap:10px; flex-wrap:wrap; }
@@ -139,7 +147,7 @@
   .small{ font-size:12px; }
   .warnText{ color:var(--warn); font-weight:900; }
 
-  /* ✅ Trip Code / 長字串可斷行 */
+  /* ??Trip Code / ?瑕?銝脣?瑁? */
   .mono{
     font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
     white-space: normal !important;
@@ -300,7 +308,7 @@
   }
   .catLine .btnSmall{ width:auto; padding:10px 12px; border-radius:14px; }
 
-  /* ===== Live FX collapsible（必須在所有 @media 外） ===== */
+  /* ===== Live FX collapsible嚗?????@media 憭? ===== */
   .fxCardHeader{
     display:flex;
     align-items:center;
@@ -322,7 +330,7 @@
   }
   .fxToggle[aria-expanded="false"] .fxChevron{ transform: rotate(-90deg); }
 
-  /* ✅ iOS 日期 input：固定框架 + 留右邊 icon 位 */
+  /* ??iOS ?交? input嚗摰???+ ???icon 雿?*/
   input[type="date"]{
     padding-right:56px !important;
     min-height:44px;
@@ -343,7 +351,7 @@
     .gearBtn{ margin-left:auto; }
     .badge{ max-width:100%; }
 
-    /* Trips list：右側按鈕唔再被切半 */
+    /* Trips list嚗?湔????◤?? */
     #tripsList .topline{
       flex-direction: column !important;
       align-items: stretch !important;
@@ -357,7 +365,7 @@
       width: 100% !important;
     }
 
-    /* Trips card：row 保持 flex（唔畀其他 CSS 改成 grid） */
+    /* Trips card嚗ow 靽? flex嚗???嗡? CSS ?寞? grid嚗?*/
     #tripsCard .row{
       display:flex !important;
       flex-direction:column !important;
@@ -376,14 +384,14 @@
   overflow: visible !important;
 }
 
-/* ✅ iOS date：留 icon 位 + 避免文字/控件高度怪 */
+/* ??iOS date嚗? icon 雿?+ ?踹???/?找辣擃漲??*/
 #addCard input[type="date"]{
   padding-right: 56px !important;
   min-height: 44px;
   line-height: 22px;
 }
 
-/* ✅ Add page：保持卡片收口，唔畀任何野出界 */
+/* ??Add page嚗????????隞颱????*/
 #addCard{
   overflow: hidden !important;
 }
@@ -395,33 +403,33 @@
   }
 }
 
-/* 2) Date input：統一高度，避免 iOS 行高導致「右邊切邊」 */
+/* 2) Date input嚗絞銝擃漲嚗??iOS 銵?撠?????*/
 #addCard input[type="date"],
 #editMask input[type="date"]{
   min-height: 44px;
   line-height: 22px;
-  padding-right: 46px;                 /* 留位俾「假 icon」 */
+  padding-right: 46px;                 /* ??靽整? icon??*/
   -webkit-appearance: none;
   appearance: none;
   background-color: #fff;
 
-  /* 自己畫一個日曆 icon（唔會被 iOS 原生 UI 撐爆/出界） */
+  /* ?芸楛?思????icon嚗??◤ iOS ?? UI ??/?箇?嚗?*/
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%236a6a78' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='3' ry='3'/%3E%3Cline x1='16' y1='2.5' x2='16' y2='6.5'/%3E%3Cline x1='8' y1='2.5' x2='8' y2='6.5'/%3E%3Cline x1='3' y1='10' x2='21' y2='10'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 60px center;
   background-size: 18px 18px;
 }
 
-/* 3) ✅ 關鍵：把 iOS 原生 indicator 隱藏（避免被 card overflow:hidden 切一刀） */
+/* 3) ???嚗? iOS ?? indicator ?梯?嚗?◤ card overflow:hidden ???嚗?*/
 #addCard input[type="date"]::-webkit-calendar-picker-indicator,
 #editMask input[type="date"]::-webkit-calendar-picker-indicator{
-  opacity: 0;              /* 隱藏但保留可點擊區（iOS 仍能開 picker） */
+  opacity: 0;              /* ?梯?雿??暺??嚗OS 隞??picker嚗?*/
   width: 44px;
   height: 44px;
   cursor: pointer;
 }
 
-/* 4) ✅ 保險：避免 date input 被 flex/最小寬度推爆 */
+/* 4) ??靽嚗??date input 鋡?flex/?撠祝摨行??*/
 #addCard .row > div,
 #editMask .row > div{
   min-width: 0;
@@ -437,10 +445,10 @@
 <header>
   <div class="hdr">
     <div class="hdrLeft">
-      <div class="appTitle">🧾 TripSplit</div>
-      <span class="badge" id="whereBadge">未選行程 · 先去「行程」建立 / 加入</span>
+      <div class="appTitle"><img src="Tripsplit.png" alt="TripSplit icon" class="appLogo" />TripSplit</div>
+      <span class="badge" id="whereBadge">?芷銵? 繚 ???蝔遣蝡?/ ?</span>
     </div>
-    <button class="ghost gearBtn" id="openSettingsBtn" aria-label="設定">⚙️</button>
+    <button class="ghost gearBtn" id="openSettingsBtn" aria-label="閮剖?">??</button>
   </div>
 </header>
 <main>
@@ -448,22 +456,22 @@
   <section class="card" id="tripsCard">
     <div class="topline">
       <div>
-        <div class="title">🧳 行程</div>
-        <div class="muted small">建立行程後會有 Trip Code；朋友輸入 Trip Code 即可加入同一份。</div>
+        <div class="title">?妊 銵?</div>
+        <div class="muted small">撱箇?銵?敺???Trip Code嚗??撓??Trip Code ?喳???隞賬?/div>
       </div>
       <div style="min-width:160px;">
-        <button class="primary" id="goCreateTripBtn">➕ 新增行程</button>
+        <button class="primary" id="goCreateTripBtn">???啣?銵?</button>
       </div>
     </div>
 
     <div class="row" style="margin-top:10px;">
       <div>
-        <label>加入行程（Trip Code）</label>
-        <input id="joinCode" placeholder="貼朋友給你的 Trip Code" />
+        <label>?銵?嚗rip Code嚗?/label>
+        <input id="joinCode" placeholder="鞎潭??策雿? Trip Code" />
       </div>
       <div style="min-width:180px;">
         <label>&nbsp;</label>
-        <button class="ghost" id="joinTripBtn">🔗 加入</button>
+        <button class="ghost" id="joinTripBtn">?? ?</button>
       </div>
     </div>
     <div class="muted small" id="syncHint" style="margin-top:6px;"></div>
@@ -473,21 +481,21 @@
 
   <!-- Create Trip -->
   <section class="card" id="createTripCard" style="display:none;">
-    <div class="title">✨ 新增行程</div>
+    <div class="title">???啣?銵?</div>
 
     <div class="row" style="margin-top:10px;">
       <div>
-        <label>行程名稱</label>
+        <label>銵??迂</label>
         <input id="tripName" placeholder="Tokyo 2026" />
       </div>
       <div>
-        <label>基準貨幣（記帳/分帳用）</label>
+        <label>?箸?鞎典馳嚗?撣??董?剁?</label>
         <select id="baseCurrency">
           <option>JPY</option><option>HKD</option><option>TWD</option><option>USD</option><option>EUR</option><option>KRW</option><option>GBP</option>
         </select>
       </div>
       <div>
-        <label>換算貨幣</label>
+        <label>??鞎典馳</label>
         <select id="displayCurrency">
           <option>HKD</option><option>TWD</option><option>USD</option><option>JPY</option><option>EUR</option><option>KRW</option><option>GBP</option>
         </select>
@@ -495,19 +503,19 @@
     </div>
 
     <div style="margin-top:10px;">
-      <label>成員（逗號分隔；可留空用 CSV 自動推斷）</label>
+      <label>?嚗???嚗?征??CSV ?芸??冽嚗?/label>
       <input id="members" placeholder="Wing,Amy,Bob" />
     </div>
 
     <div class="row" style="margin-top:10px;">
-      <button class="ghost" id="createImportBtn">📥 匯入CSV（用於建立新行程）</button>
+      <button class="ghost" id="createImportBtn">? ?臬CSV嚗?澆遣蝡銵?嚗?/button>
       <input id="createImportInput" type="file" accept=".csv,text/csv" style="display:none;" />
     </div>
     <div class="muted small" id="createImportHint" style="margin-top:6px;"></div>
 
     <div class="row" style="margin-top:10px;">
-      <button class="primary" id="createTripBtn">建立行程</button>
-      <button class="ghost" id="cancelCreateTripBtn">取消</button>
+      <button class="primary" id="createTripBtn">撱箇?銵?</button>
+      <button class="ghost" id="cancelCreateTripBtn">??</button>
     </div>
   </section>
 
@@ -515,15 +523,15 @@
   <section class="card" id="addCard" style="display:none;">
     <div class="topline">
       <div>
-        <div class="title">🍰 新增消費</div>
+        <div class="title">? ?啣?瘨祥</div>
         <div class="stepper" id="stepper">
-          <div class="step" data-step="1"><b>1 基本</b></div>
-          <div class="step" data-step="2"><b>2 份額</b></div>
-          <div class="step" data-step="3"><b>3 完成</b></div>
+          <div class="step" data-step="1"><b>1 ?箸</b></div>
+          <div class="step" data-step="2"><b>2 隞賡?</b></div>
+          <div class="step" data-step="3"><b>3 摰?</b></div>
         </div>
       </div>
       <div style="min-width:180px;">
-        <button class="ghost" id="backToTripsBtn">← 返回行程列表</button>
+        <button class="ghost" id="backToTripsBtn">??餈?銵??”</button>
       </div>
     </div>
 
@@ -532,36 +540,36 @@
 
       <div class="hr"></div>
 
-      <div class="title">🧾 基本資料</div>
+      <div class="title">?屁 ?箸鞈?</div>
       <div class="row" style="margin-top:10px;">
         <div>
-          <label>分類</label>
+          <label>??</label>
           <select id="exCategoryId"></select>
           <div class="muted small" id="catHintAdd" style="margin-top:6px;"></div>
         </div>
         <div>
-          <label>項目</label>
-          <input id="exTitle" placeholder="請輸入" />
+          <label>?</label>
+          <input id="exTitle" placeholder="隢撓?? />
         </div>
         <div>
-          <label>日期</label>
+          <label>?交?</label>
           <input id="exDate" type="date" />
         </div>
       </div>
 
       <div class="row" style="margin-top:10px;">
         <div>
-          <label>原始貨幣</label>
+          <label>??鞎典馳</label>
           <select id="exCurrency">
             <option>JPY</option><option>HKD</option><option>TWD</option><option>USD</option><option>EUR</option><option>KRW</option><option>GBP</option>
           </select>
         </div>
         <div>
-          <label>總額</label>
+          <label>蝮賡?</label>
           <input id="exAmount" type="number" min="0" step="0.01" placeholder="5000" />
         </div>
         <div>
-          <label>付款人（Payer）</label>
+          <label>隞狡鈭綽?Payer嚗?/label>
           <select id="exPayer"></select>
         </div>
       </div>
@@ -569,56 +577,56 @@
       <div class="muted small" id="rateHint" style="margin-top:10px;"></div>
 
       <div class="wizNav">
-        <button class="ghost" id="wizPrev1" disabled>← 上一步</button>
-        <button class="primary" id="wizNext1">下一步 →</button>
+        <button class="ghost" id="wizPrev1" disabled>??銝?甇?/button>
+        <button class="primary" id="wizNext1">銝?甇???/button>
       </div>
     </div>
 
     <div class="stepPane" id="step2">
       <div class="splitBox">
-        <div class="muted small">第二步：先選參與者，再填每人份額 / 平均分。</div>
+        <div class="muted small">蝚砌?甇伐???????‵瘥犖隞賡? / 撟喳???/div>
         <div style="margin-top:10px;">
-          <label>參與者</label>
+          <label>????/label>
           <div class="chipRow" id="participantChecks"></div>
         </div>
 
         <div class="row" style="margin-top:10px;">
-          <button id="splitEvenBtn">🎀 平均分配（只對已勾選者）</button>
-          <button id="clearSharesBtn">🧼 清空份額</button>
+          <button id="splitEvenBtn">?? 撟喳???嚗撠歇?暸??</button>
+          <button id="clearSharesBtn">?尬 皜征隞賡?</button>
         </div>
 
         <div style="margin-top:10px;">
-          <label>自訂份額（支援算式）</label>
+          <label>?芾?隞賡?嚗?渡?撘?</label>
           <div id="shareInputs" class="grid2"></div>
           <div class="muted small" id="shareMathHint" style="margin-top:8px;"></div>
         </div>
       </div>
 
       <div class="wizNav">
-        <button class="ghost" id="wizPrev2">← 上一步</button>
-        <button class="primary" id="wizNext2">下一步 →</button>
+        <button class="ghost" id="wizPrev2">??銝?甇?/button>
+        <button class="primary" id="wizNext2">銝?甇???/button>
       </div>
     </div>
 
     <div class="stepPane" id="step3">
       <div class="muted small" style="margin-top:8px;">
-        第三步：收據相片。
+        蝚砌?甇伐??嗆??貊???
       </div>
 
       <div style="margin-top:10px;">
-        <label>收據相片</label>
+        <label>?嗆??貊?</label>
         <input id="exReceipts" type="file" accept="image/*" multiple />
         <div class="muted small" id="receiptHint" style="margin-top:6px;"></div>
       </div>
 
       <div class="row" style="margin-top:10px;">
-        <button class="primary" id="addExpenseBtn">✅ 新增開支</button>
-        <button class="ghost" id="resetExpenseBtn">🧽 清空表單</button>
+        <button class="primary" id="addExpenseBtn">???啣??</button>
+        <button class="ghost" id="resetExpenseBtn">?局 皜征銵典</button>
       </div>
 
       <div class="wizNav">
-        <button class="ghost" id="wizPrev3">← 上一步</button>
-        <button class="ghost" disabled>完成後會自動回到第一步</button>
+        <button class="ghost" id="wizPrev3">??銝?甇?/button>
+        <button class="ghost" disabled>摰?敺??芸??蝚砌?甇?/button>
       </div>
     </div>
   </section>
@@ -627,68 +635,68 @@
   <section class="card" id="personCard" style="display:none;">
     <div class="topline">
       <div>
-        <div class="title">🧸 個人總開支</div>
-        <div class="muted small">可下載 CSV（反映同步後的資料）。收據會顯示縮圖。</div>
+        <div class="title">?孛 ?犖蝮賡???/div>
+        <div class="muted small">?臭?頛?CSV嚗???甇亙????????憿舐內蝮桀???/div>
       </div>
       <div style="min-width:180px;">
-        <button class="ghost" id="refreshBtn">🔄 重新計算 / 更新</button>
+        <button class="ghost" id="refreshBtn">?? ?閮? / ?湔</button>
       </div>
     </div>
 
     <div class="row" style="margin-top:10px;">
       <div>
-        <label>選擇成員</label>
+        <label>?豢??</label>
         <select id="personSelect"></select>
       </div>
       <div>
-        <label>換算貨幣（只影響顯示，不改行程設定）</label>
+        <label>??鞎典馳嚗敶梢憿舐內嚗??寡?蝔身摰?</label>
         <select id="displayCurrencyInPerson"></select>
       </div>
     </div>
 
     <div class="row" style="margin-top:10px;">
       <div>
-        <label>個人總開支（基準）</label>
+        <label>?犖蝮賡??荔??箸?嚗?/label>
         <input id="personTotalBase" disabled />
       </div>
       <div>
-        <label>個人總開支（換算）</label>
+        <label>?犖蝮賡??荔???嚗?/label>
         <input id="personTotalDisp" disabled />
       </div>
     </div>
     <div class="muted small" id="personFxWarn" style="margin-top:6px;"></div>
 
     <div class="row" style="margin-top:10px;">
-      <button class="primary" id="downloadPersonBtn">⬇️ 下載此人帳單（CSV）</button>
-      <button class="ghost" id="downloadTripBtn">⬇️ 下載全行程帳單（CSV）</button>
+      <button class="primary" id="downloadPersonBtn">漎? 銝?甇支犖撣喳嚗SV嚗?/button>
+      <button class="ghost" id="downloadTripBtn">漎? 銝??刻?蝔董?殷?CSV嚗?/button>
     </div>
 
     <div class="hr"></div>
 
     <details id="iouDetails">
-      <summary>📌 逐單欠款明細（摺疊）</summary>
+      <summary>?? ?甈狡?敦嚗??</summary>
       <div class="muted small" id="iouHint" style="margin-top:8px;"></div>
       <div class="list" id="iouList" style="margin-top:10px;"></div>
     </details>
 
     <div class="hr"></div>
-    <div class="title">✅ 結算</div>
+    <div class="title">??蝯?</div>
     <div class="list" id="personNetList" style="margin-top:10px;"></div>
 
     <div class="hr"></div>
 
-    <!-- 個人頁亦可以用分類分頁過濾（可選） -->
-    <div class="title">🏷️ 分類分頁</div>
+    <!-- ?犖?漲?臭誑?典?憿???瞈橘??舫嚗?-->
+    <div class="title">?儭?????</div>
     <div class="catTabs" id="personCatTabs"></div>
     <div class="muted small" id="personCatHint" style="margin-top:6px;"></div>
 	
 	<div class="row" style="margin-top:10px;">
   <div>
-    <label>此分類總額（基準）</label>
+    <label>甇文?憿蜇憿??箸?嚗?/label>
     <input id="personCatTotalBase" disabled />
   </div>
   <div>
-    <label>此分類總額（換算）</label>
+    <label>甇文?憿蜇憿???嚗?/label>
     <input id="personCatTotalDisp" disabled />
   </div>
 </div>
@@ -696,7 +704,7 @@
 
     <div class="hr"></div>
 
-    <div class="title">🧾 該成員細節</div>
+    <div class="title">?屁 閰脫??∠敦蝭</div>
     <div class="list" id="personList" style="margin-top:10px;"></div>
   </section>
 
@@ -704,45 +712,45 @@
   <section class="card" id="allCard" style="display:none;">
     <div class="topline">
       <div>
-        <div class="title">🧁全部消費</div>
-        <div class="muted small">統計所有消費</div>
+        <div class="title">???券瘨祥</div>
+        <div class="muted small">蝯梯????鞎?/div>
       </div>
       <div style="min-width:180px;">
-        <button class="danger" id="wipeTripBtn">🗑️ 清空此行程資料</button>
+        <button class="danger" id="wipeTripBtn">??儭?皜征甇方?蝔???/button>
       </div>
     </div>
 
     <div class="row" style="margin-top:10px;">
       <div>
-        <label>行程總開支（基準）</label>
+        <label>銵?蝮賡??荔??箸?嚗?/label>
         <input id="tripTotalBaseAll" disabled />
       </div>
       <div>
-        <label>行程總開支（換算）</label>
+        <label>銵?蝮賡??荔???嚗?/label>
         <input id="tripTotalDispAll" disabled />
       </div>
     </div>
     <div class="muted small" id="tripFxWarnAll" style="margin-top:6px;"></div>
 
     <div class="hr"></div>
-    <div class="title">👥 全員總覽</div>
+    <div class="title">? ?典蝮質汗</div>
     <div class="muted small" id="peopleFxHint" style="margin-top:6px;"></div>
     <div class="list" id="peopleSummaryAll" style="margin-top:10px;"></div>
 
     <div class="hr"></div>
 
-    <!-- ✅ 你要的「分項=分類分頁」 -->
-    <div class="title">🏷️ 分類分頁</div>
+    <!-- ??雿???????????-->
+    <div class="title">?儭?????</div>
     <div class="catTabs" id="allCatTabs"></div>
     <div class="muted small" id="allCatHint" style="margin-top:6px;"></div>
 
 <div class="row" style="margin-top:10px;">
   <div>
-    <label>此分類總額（基準）</label>
+    <label>甇文?憿蜇憿??箸?嚗?/label>
     <input id="allCatTotalBase" disabled />
   </div>
   <div>
-    <label>此分類總額（換算）</label>
+    <label>甇文?憿蜇憿???嚗?/label>
     <input id="allCatTotalDisp" disabled />
   </div>
 </div>
@@ -751,8 +759,8 @@
 
     <div class="row" style="margin-top:10px;">
       <div>
-        <label>🔎 快速尋找</label>
-        <input id="allSearch" placeholder="輸入項目名稱" />
+        <label>?? 敹恍???/label>
+        <input id="allSearch" placeholder="頛詨??迂" />
       </div>
     </div>
     <div class="muted small" id="allSearchHint" style="margin-top:6px;"></div>
@@ -762,10 +770,10 @@
 </main>
 
 <div class="tabs">
-  <button class="tabbtn" data-tab="trips"><span class="emoji">🧳</span>行程</button>
-  <button class="tabbtn" data-tab="add"><span class="emoji">🍰</span>新增</button>
-  <button class="tabbtn" data-tab="person"><span class="emoji">🧸</span>個人</button>
-  <button class="tabbtn" data-tab="all"><span class="emoji">🧁</span>全部</button>
+  <button class="tabbtn" data-tab="trips"><span class="emoji">?妊</span>銵?</button>
+  <button class="tabbtn" data-tab="add"><span class="emoji">?</span>?啣?</button>
+  <button class="tabbtn" data-tab="person"><span class="emoji">?孛</span>?犖</button>
+  <button class="tabbtn" data-tab="all"><span class="emoji">??</span>?券</button>
 </div>
 
 <!-- ===== Edit Modal ===== -->
@@ -773,58 +781,58 @@
   <div class="modal">
     <div class="topline">
       <div>
-        <div class="title">✏️ 編輯項目</div>
-        <div class="muted small">可改標題/分類/日期/金額/貨幣/付款人/參與者/份額/收據</div>
+        <div class="title">?? 蝺刻摩?</div>
+        <div class="muted small">?舀璅?/??/?交?/??/鞎典馳/隞狡鈭?????隞賡?/?嗆?</div>
       </div>
       <div style="min-width:160px;">
-        <button class="ghost" id="editCloseBtn">關閉</button>
+        <button class="ghost" id="editCloseBtn">??</button>
       </div>
     </div>
 
     <div class="row" style="margin-top:10px;">
       <div>
-        <label>分類</label>
+        <label>??</label>
         <select id="edCategoryId"></select>
       </div>
       <div>
-        <label>標題</label>
+        <label>璅?</label>
         <input id="edTitle" />
       </div>
       <div>
-        <label>日期</label>
+        <label>?交?</label>
         <input id="edDate" type="date" />
       </div>
     </div>
 
     <div class="row" style="margin-top:10px;">
       <div>
-        <label>原始貨幣</label>
+        <label>??鞎典馳</label>
         <select id="edCurrency"></select>
       </div>
       <div>
-        <label>總額</label>
+        <label>蝮賡?</label>
         <input id="edAmount" type="number" min="0" step="0.01" />
       </div>
       <div>
-        <label>付款人</label>
+        <label>隞狡鈭?/label>
         <select id="edPayer"></select>
       </div>
     </div>
 
     <div class="splitBox">
-      <div class="muted small">參與者 + 份額（原幣）。</div>
+      <div class="muted small">????+ 隞賡?嚗?撟????/div>
       <div style="margin-top:10px;">
-        <label>參與者</label>
+        <label>????/label>
         <div class="chipRow" id="edParticipants"></div>
       </div>
 
       <div class="row" style="margin-top:10px;">
-        <button id="edSplitEvenBtn">🎀 平均分配</button>
-        <button id="edClearSharesBtn">🧼 清空份額</button>
+        <button id="edSplitEvenBtn">?? 撟喳???</button>
+        <button id="edClearSharesBtn">?尬 皜征隞賡?</button>
       </div>
 
       <div style="margin-top:10px;">
-        <label>自訂份額（支援算式）</label>
+        <label>?芾?隞賡?嚗?渡?撘?</label>
         <div id="edShares" class="grid2"></div>
         <div class="muted small" id="edShareMathHint" style="margin-top:8px;"></div>
       </div>
@@ -832,13 +840,13 @@
 
     <div class="hr"></div>
 
-    <div class="title">🧾 收據相片</div>
-    <div class="muted small">可「刪除現有」或「新增上傳」。</div>
+    <div class="title">?屁 ?嗆??貊?</div>
+    <div class="muted small">?胯?斤???憓??喋?/div>
 
     <div id="edReceiptExisting" class="miniThumbWrap" style="margin-top:10px;"></div>
 
     <div style="margin-top:10px;">
-      <label>新增收據（可多張）</label>
+      <label>?啣??嗆?嚗憭撐嚗?/label>
       <input id="edReceipts" type="file" accept="image/*" multiple />
       <div class="muted small" id="edReceiptHint" style="margin-top:6px;"></div>
     </div>
@@ -846,8 +854,8 @@
     <div class="hr"></div>
 
     <div class="row" style="margin-top:10px;">
-      <button class="primary" id="editSaveBtn">✅ 保存修改（同步）</button>
-      <button class="danger" id="editDeleteBtn">🗑️ 刪除此筆（同步）</button>
+      <button class="primary" id="editSaveBtn">??靽?靽格嚗?甇伐?</button>
+      <button class="danger" id="editDeleteBtn">??儭??芷甇斤?嚗?甇伐?</button>
     </div>
 
     <div class="muted small" id="editHint" style="margin-top:10px;"></div>
@@ -859,11 +867,11 @@
   <div class="modal" style="padding:10px;">
     <div class="topline">
       <div>
-        <div class="title">🖼️ 收據</div>
+        <div class="title">?儭??嗆?</div>
         <div class="muted small" id="viewerMeta"></div>
       </div>
       <div style="min-width:160px;">
-        <button class="ghost" id="viewerCloseBtn">關閉</button>
+        <button class="ghost" id="viewerCloseBtn">??</button>
       </div>
     </div>
 
@@ -872,8 +880,8 @@
     </div>
 
     <div class="row" style="margin-top:10px;">
-      <button class="ghost" id="viewerOpenNewBtn">在新頁開啟</button>
-      <button class="primary" id="viewerDownloadBtn">⬇️ 下載</button>
+      <button class="ghost" id="viewerOpenNewBtn">?冽????/button>
+      <button class="primary" id="viewerDownloadBtn">漎? 銝?</button>
     </div>
   </div>
 </div>
@@ -883,57 +891,57 @@
   <div class="modal">
     <div class="topline">
       <div>
-        <div class="title">⚙️ 小設定</div>
-        <div class="muted small">自訂「底部頁籤」＋「分類分頁（可新增）」</div>
+        <div class="title">?? 撠身摰?/div>
+        <div class="muted small">?芾????券?蝐扎???憿????舀憓???/div>
       </div>
       <div style="min-width:160px;">
-        <button class="ghost" id="settingsCloseBtn">關閉</button>
+        <button class="ghost" id="settingsCloseBtn">??</button>
       </div>
     </div>
 
     <div class="hr"></div>
 
-    <div class="title">📌 底部頁籤（Emoji + 名稱）</div>
+    <div class="title">?? 摨?惜嚗moji + ?迂嚗?/div>
 
     <div class="row" style="margin-top:10px;">
-      <div><label>行程頁 Emoji</label><input id="setEmojiTrips" placeholder="🧳" /></div>
-      <div><label>行程頁 名稱</label><input id="setLabelTrips" placeholder="行程" /></div>
+      <div><label>銵???Emoji</label><input id="setEmojiTrips" placeholder="?妊" /></div>
+      <div><label>銵????迂</label><input id="setLabelTrips" placeholder="銵?" /></div>
     </div>
     <div class="row" style="margin-top:10px;">
-      <div><label>新增頁 Emoji</label><input id="setEmojiAdd" placeholder="🍰" /></div>
-      <div><label>新增頁 名稱</label><input id="setLabelAdd" placeholder="新增" /></div>
+      <div><label>?啣???Emoji</label><input id="setEmojiAdd" placeholder="?" /></div>
+      <div><label>?啣????迂</label><input id="setLabelAdd" placeholder="?啣?" /></div>
     </div>
     <div class="row" style="margin-top:10px;">
-      <div><label>個人頁 Emoji</label><input id="setEmojiPerson" placeholder="🧸" /></div>
-      <div><label>個人頁 名稱</label><input id="setLabelPerson" placeholder="個人" /></div>
+      <div><label>?犖??Emoji</label><input id="setEmojiPerson" placeholder="?孛" /></div>
+      <div><label>?犖???迂</label><input id="setLabelPerson" placeholder="?犖" /></div>
     </div>
     <div class="row" style="margin-top:10px;">
-      <div><label>全部頁 Emoji</label><input id="setEmojiAll" placeholder="🧁" /></div>
-      <div><label>全部頁 名稱</label><input id="setLabelAll" placeholder="全部" /></div>
+      <div><label>?券??Emoji</label><input id="setEmojiAll" placeholder="??" /></div>
+      <div><label>?券???迂</label><input id="setLabelAll" placeholder="?券" /></div>
     </div>
 
     <div class="row" style="margin-top:14px;">
-      <button class="primary" id="saveSettingsBtn">✅ 保存設定</button>
-      <button class="ghost" id="resetSettingsBtn">↩︎ 回復預設</button>
+      <button class="primary" id="saveSettingsBtn">??靽?閮剖?</button>
+      <button class="ghost" id="resetSettingsBtn">?抬? ?儔?身</button>
     </div>
 
     <div class="hr"></div>
 
-    <div class="title">🏷️ 分類分頁（可新增/改Emoji/改名/刪除）</div>
-    <div class="muted small">新增後：會出現在「全部/個人」分類分頁列，以及「新增/編輯」的分類下拉。</div>
+    <div class="title">?儭?????嚗?啣?/?遂moji/?孵?/?芷嚗?/div>
+    <div class="muted small">?啣?敺???曉????犖??憿???嚗誑?憓?蝺刻摩????銝???/div>
 
     <div class="catManageRow">
       <div>
-        <label>新分類 Emoji</label>
-        <input id="newCatEmoji" placeholder="🍜" />
+        <label>?啣?憿?Emoji</label>
+        <input id="newCatEmoji" placeholder="??" />
       </div>
       <div>
-        <label>新分類 名稱</label>
-        <input id="newCatName" placeholder="食物" />
+        <label>?啣?憿??迂</label>
+        <input id="newCatName" placeholder="憌" />
       </div>
       <div style="min-width:200px;">
         <label>&nbsp;</label>
-        <button class="primary" id="addCatBtn">➕ 新增分類</button>
+        <button class="primary" id="addCatBtn">???啣???</button>
       </div>
     </div>
 
@@ -1078,24 +1086,24 @@ function ensureDefaultPrefs(){
   if(!state.uiPrefs){
     state.uiPrefs = {
       tabs: {
-        trips: { emoji:"🧳", label:"行程" },
-        add: { emoji:"🍰", label:"新增" },
-        person:{ emoji:"🧸", label:"個人" },
-        all: { emoji:"🧁", label:"全部" }
+        trips: { emoji:"?妊", label:"銵?" },
+        add: { emoji:"?", label:"?啣?" },
+        person:{ emoji:"?孛", label:"?犖" },
+        all: { emoji:"??", label:"?券" }
       },
       categories: [
-        { id:"food", emoji:"🍜", name:"食物" },
-        { id:"hotel", emoji:"🏨", name:"酒店" },
-        { id:"transport", emoji:"🚇", name:"交通" },
-        { id:"ticket", emoji:"🎫", name:"門票" },
-        { id:"shopping", emoji:"🛍️", name:"購物" },
-        { id:"fun", emoji:"🎮", name:"娛樂" },
-        { id:"other", emoji:"🧩", name:"其他" }
+        { id:"food", emoji:"??", name:"憌" },
+        { id:"hotel", emoji:"?", name:"??" },
+        { id:"transport", emoji:"??", name:"鈭日? },
+        { id:"ticket", emoji:"?", name:"?蟡? },
+        { id:"shopping", emoji:"??儭?, name:"鞈潛" },
+        { id:"fun", emoji:"?", name:"憡?" },
+        { id:"other", emoji:"?妝", name:"?嗡?" }
       ]
     };
   }
   if(!state.uiPrefs.categories || !Array.isArray(state.uiPrefs.categories) || state.uiPrefs.categories.length===0){
-    state.uiPrefs.categories = [{ id:"other", emoji:"🧩", name:"其他" }];
+    state.uiPrefs.categories = [{ id:"other", emoji:"?妝", name:"?嗡?" }];
   }
 }
 function getCategories(){
@@ -1110,9 +1118,9 @@ function normalizeCatId(name){
   return base || ("cat_" + uid().slice(0,6));
 }
 function catLabel(catId){
-  if(catId === "ALL") return { emoji:"🔎", name:"全部" };
+  if(catId === "ALL") return { emoji:"??", name:"?券" };
   const c = getCatById(catId);
-  return c ? { emoji:c.emoji||"🏷️", name:c.name||"分類" } : { emoji:"🏷️", name:"分類" };
+  return c ? { emoji:c.emoji||"?儭?, name:c.name||"??" } : { emoji:"?儭?, name:"??" };
 }
 
 /* =========================
@@ -1227,7 +1235,7 @@ async function sbSubscribeTrip(tripId){
     })
     .subscribe((status)=>{
       if(status==="SUBSCRIBED"){
-        setSyncHint(`✅ 已連線同步（Trip Code：<span class="mono">${escapeHtml(tripId)}</span>）`);
+        setSyncHint(`??撌脤???郊嚗rip Code嚗?span class="mono">${escapeHtml(tripId)}</span>嚗);
       }
     });
 }
@@ -1307,7 +1315,7 @@ function buildIOUsForTripBase(tripId){
       if(person === ex.payer) continue;
       const shareBase = safeNum(shareOrig) * rateBase;
       if(shareBase > 0){
-        ious.push({ from: person, to: ex.payer, amountBase: shareBase, title: ex.title||"(未命名)", date: ex.date||"", expenseId: ex.id });
+        ious.push({ from: person, to: ex.payer, amountBase: shareBase, title: ex.title||"(?芸??", date: ex.date||"", expenseId: ex.id });
       }
     }
   }
@@ -1364,13 +1372,13 @@ function calcCategoryTotalBase_All(tripId, catId){
   let sum = 0;
   for(const ex of exps){
     if(catId !== "ALL" && (ex.categoryId || "") !== catId) continue;
-    // 用已換算到基準的 baseAmount（最準）
+    // ?典歇???啣皞? baseAmount嚗?皞?
     sum += safeNum(ex.fxBase?.baseAmount ?? ex.amount);
   }
   return round2(sum);
 }
 
-// Person：只統計「此人份額」在該分類的合計（比計整張單更合理）
+// Person嚗蝯梯??迨鈭箔遢憿閰脣?憿???嚗?閮撘萄?游???
 function calcCategoryTotalBase_Person(tripId, person, catId){
   const exps = getTripExpenses(tripId);
   let sum = 0;
@@ -1381,7 +1389,7 @@ function calcCategoryTotalBase_Person(tripId, person, catId){
     const hasShare = ex.shares && Object.prototype.hasOwnProperty.call(ex.shares, person) && safeNum(ex.shares[person]) > 0;
     if(!(inParticipants && hasShare)) continue;
 
-    // 份額是「原幣」，要乘 rateBase 才變基準
+    // 隞賡??胯?撟??閬? rateBase ???箸?
     const rateBase = safeNum(ex.fxBase?.rateBase ?? 1);
     sum += safeNum(ex.shares[person]) * rateBase;
   }
@@ -1400,11 +1408,11 @@ function setCatTotals_AllUI(){
     $("allCatTotalDisp").value = `${round2(baseTotal * fx.rate)} ${fx.disp}`;
     $("allCatTotalHint").textContent =
       catId==="ALL"
-        ? `全部分類合計 · 換算：1 ${trip.baseCurrency} = ${fx.rate} ${fx.disp}`
-        : `此分類合計 · 換算：1 ${trip.baseCurrency} = ${fx.rate} ${fx.disp}`;
+        ? `?券???? 繚 ??嚗? ${trip.baseCurrency} = ${fx.rate} ${fx.disp}`
+        : `甇文?憿?閮?繚 ??嚗? ${trip.baseCurrency} = ${fx.rate} ${fx.disp}`;
   }else{
-    $("allCatTotalDisp").value = `— ${trip.displayCurrency}`;
-    $("allCatTotalHint").innerHTML = `<span class="warnText">⚠️ 未設定換算匯率</span>：${trip.baseCurrency}→${trip.displayCurrency}`;
+    $("allCatTotalDisp").value = `??${trip.displayCurrency}`;
+    $("allCatTotalHint").innerHTML = `<span class="warnText">?? ?芾身摰?蝞??/span>嚗?{trip.baseCurrency}??{trip.displayCurrency}`;
   }
 }
 
@@ -1423,11 +1431,11 @@ function setCatTotals_PersonUI(){
     $("personCatTotalDisp").value = `${round2(baseTotal * fx.rate)} ${fx.disp}`;
     $("personCatTotalHint").textContent =
       catId==="ALL"
-        ? `（${person}）全部分類份額合計 · 換算：1 ${trip.baseCurrency} = ${fx.rate} ${fx.disp}`
-        : `（${person}）此分類份額合計 · 換算：1 ${trip.baseCurrency} = ${fx.rate} ${fx.disp}`;
+        ? `嚗?{person}嚗?典?憿遢憿?閮?繚 ??嚗? ${trip.baseCurrency} = ${fx.rate} ${fx.disp}`
+        : `嚗?{person}嚗迨??隞賡??? 繚 ??嚗? ${trip.baseCurrency} = ${fx.rate} ${fx.disp}`;
   }else{
-    $("personCatTotalDisp").value = `— ${dispCur}`;
-    $("personCatTotalHint").innerHTML = `<span class="warnText">⚠️ 未設定換算匯率</span>：${trip.baseCurrency}→${dispCur}`;
+    $("personCatTotalDisp").value = `??${dispCur}`;
+    $("personCatTotalHint").innerHTML = `<span class="warnText">?? ?芾身摰?蝞??/span>嚗?{trip.baseCurrency}??{dispCur}`;
   }
 }
 
@@ -1467,7 +1475,7 @@ $("viewerDownloadBtn").addEventListener("click", ()=>{
 ========================= */
 function receiptsThumbsHtml(receipts){
   const arr = receipts || [];
-  if(!arr.length) return `<div class="muted small" style="margin-top:8px;">（無收據相）</div>`;
+  if(!arr.length) return `<div class="muted small" style="margin-top:8px;">嚗?嗆??賂?</div>`;
   const html = arr.map(r=>{
     const u = r?.url || "";
     if(!u) return "";
@@ -1508,19 +1516,19 @@ function fxUIHtml(trip){
   return `
     <div class="item" style="border-style:solid;">
       <div class="fxCardHeader">
-        <div class="title">💱 Live FX</div>
+        <div class="title">? Live FX</div>
         <button class="ghost fxToggle" id="fxToggleBtn"
                 aria-expanded="${expanded ? "true" : "false"}"
                 type="button">
-          <span class="fxChevron">▾</span>
-          ${expanded ? "摺疊" : "顯示"}
+          <span class="fxChevron">??/span>
+          ${expanded ? "?箇?" : "憿舐內"}
         </button>
       </div>
 
-      <!-- ✅ 注意：由呢度開始全部放入 fxBody，摺疊會連提示+輸入+目前 一齊收起 -->
+      <!-- ??瘜冽?嚗?Ｗ漲???券?曉 fxBody嚗?????蝷?頛詨+?桀? 銝朣韏?-->
       <div class="fxBody ${collapsed ? "isCollapsed" : ""}" id="fxBody">
         <div class="muted small" style="margin-top:6px;">
-          修改 FROM/TO/Rate 會即時重算 + 同步到所有人。
+          靽格 FROM/TO/Rate ???蝞?+ ?郊?唳??犖??
         </div>
 
         <div class="row" style="margin-top:10px;">
@@ -1533,8 +1541,8 @@ function fxUIHtml(trip){
             <select id="fxTo">${CURRS.map(c=>`<option value="${c}">${c}</option>`).join("")}</select>
           </div>
           <div>
-            <label>匯率（1 FROM = ? TO）</label>
-            <input id="fxRate" type="number" min="0" step="0.000001" placeholder="例如：0.25" />
+            <label>?舐?嚗? FROM = ? TO嚗?/label>
+            <input id="fxRate" type="number" min="0" step="0.000001" placeholder="靘?嚗?.25" />
           </div>
         </div>
 
@@ -1585,14 +1593,14 @@ function showFxOverrideHint(){
   const rb = getOverrideRate(to,from,trip.id);
 
   el.innerHTML = `
-    目前：${r!=null ? `1 ${from} = <b class="mono">${r}</b> ${to}` : `<span class="warnText">未設定</span> ${from}→${to}`}
-    ${rb!=null ? `（反向：1 ${to} = <b class="mono">${rb}</b> ${from}）` : ""}
+    ?桀?嚗?{r!=null ? `1 ${from} = <b class="mono">${r}</b> ${to}` : `<span class="warnText">?芾身摰?/span> ${from}??{to}`}
+    ${rb!=null ? `嚗???1 ${to} = <b class="mono">${rb}</b> ${from}嚗 : ""}
   `;
 
   const want = `${trip.baseCurrency}|${trip.displayCurrency}`;
   const input = `${from}|${to}`;
   if(input !== want){
-    el.innerHTML += `<br/><span class="warnText">提示：</span>你而家改緊 ${from}→${to}，但行程顯示用 ${trip.baseCurrency}→${trip.displayCurrency}；數字爆咗通常係方向反轉。`;
+    el.innerHTML += `<br/><span class="warnText">?內嚗?/span>雿振?寧? ${from}??{to}嚗?銵?憿舐內??${trip.baseCurrency}??{trip.displayCurrency}嚗摮??虜靽??頧;
   }
 }
 
@@ -1615,21 +1623,21 @@ function mountFxUI(){
     tbtn.addEventListener("click", async ()=>{
       const isCollapsed = body.classList.toggle("isCollapsed");
       tbtn.setAttribute("aria-expanded", isCollapsed ? "false" : "true");
-      tbtn.innerHTML = `<span class="fxChevron">▾</span> ${isCollapsed ? "顯示" : "摺疊"}`;
+      tbtn.innerHTML = `<span class="fxChevron">??/span> ${isCollapsed ? "憿舐內" : "?箇?"}`;
 
       ui.fxCollapsed = isCollapsed;
       state.tripUI[trip.id] = ui;
       await saveState();
 
-      // 展開後要補回 select/input 值 + 事件
+      // 撅?敺?鋆? select/input ??+ 鈭辣
       if(!isCollapsed){
-        // 重新 mount 一次最乾淨（確保 From/To/Rate 事件完整）
+        // ? mount 銝甈⊥?銋暹楊嚗Ⅱ靽?From/To/Rate 鈭辣摰嚗?
         mountFxUI();
       }
     });
   }
 
-  // 如果 body 摺咗，就唔綁 input events
+  // 憒? body ?箏?嚗停?? input events
   if(body && body.classList.contains("isCollapsed")){
     return;
   }
@@ -1652,10 +1660,10 @@ function mountFxUI(){
 ========================= */
 function renderCatTabs(hostId, activeId, onPick){
   const cats = getCategories();
-  const allBtn = `<div class="catTab ${activeId==="ALL" ? "active":""}" data-catid="ALL">🔎 全部</div>`;
+  const allBtn = `<div class="catTab ${activeId==="ALL" ? "active":""}" data-catid="ALL">?? ?券</div>`;
   const catBtns = cats.map(c=>{
     const isA = activeId === c.id;
-    return `<div class="catTab ${isA ? "active":""}" data-catid="${escapeHtml(c.id)}">${escapeHtml(c.emoji||"🏷️")} ${escapeHtml(c.name||"分類")}</div>`;
+    return `<div class="catTab ${isA ? "active":""}" data-catid="${escapeHtml(c.id)}">${escapeHtml(c.emoji||"?儭?)} ${escapeHtml(c.name||"??")}</div>`;
   }).join("");
 
   const host = $(hostId);
@@ -1675,7 +1683,7 @@ function renderCatTabs(hostId, activeId, onPick){
 function renderCategorySelect(selectId, value){
   const cats = getCategories();
   const sel = $(selectId);
-  sel.innerHTML = cats.map(c=>`<option value="${escapeHtml(c.id)}">${escapeHtml(c.emoji||"🏷️")} ${escapeHtml(c.name||"分類")}</option>`).join("");
+  sel.innerHTML = cats.map(c=>`<option value="${escapeHtml(c.id)}">${escapeHtml(c.emoji||"?儭?)} ${escapeHtml(c.name||"??")}</option>`).join("");
   if(value && cats.some(c=>c.id===value)) sel.value = value;
   else sel.value = cats[0]?.id || "other";
 }
@@ -1686,8 +1694,8 @@ function renderCategorySelect(selectId, value){
 function updateHeaderBadge(){
   const t = getActiveTrip();
   $("whereBadge").textContent = t
-    ? `行程：${t.name}`
-    : "未選行程 · 先去「行程」建立 / 加入";
+    ? `銵?嚗?{t.name}`
+    : "?芷銵? 繚 ???蝔遣蝡?/ ?";
 }
 
 async function setTab(tab){
@@ -1726,20 +1734,20 @@ function wizardGo(n, quiet=false){
 }
 function wizardValidateStep(n){
   const trip = getActiveTrip();
-  if(!trip) return { ok:false, msg:"請先建立或加入一個行程～" };
+  if(!trip) return { ok:false, msg:"隢?撱箇????乩???蝔?" };
   if(n===1){
     const amount = safeNum($("exAmount").value);
-    if(amount<=0) return { ok:false, msg:"請先輸入「原始總額」(>0)。" };
+    if(amount<=0) return { ok:false, msg:"隢?頛詨??憪蜇憿?>0)?? };
     return { ok:true };
   }
   if(n===2){
     const amount = safeNum($("exAmount").value);
-    if(amount<=0) return { ok:false, msg:"請先回上一步填總額。" };
+    if(amount<=0) return { ok:false, msg:"隢???銝甇亙‵蝮賡??? };
     const ps = getSelectedParticipants(".pchk");
-    if(ps.length<1) return { ok:false, msg:"請勾選最少 1 位參與者。" };
+    if(ps.length<1) return { ok:false, msg:"隢?豢?撠?1 雿??? };
     const read = readSharesWithNMinus1({ amountTotal: amount, names: ps, hostId:"shareInputs" });
     if(!read.ok) return { ok:false, msg:read.error };
-    if(Object.keys(read.shares||{}).length<1) return { ok:false, msg:"請輸入份額（或留 1 個空用 N-1 自動補）。" };
+    if(Object.keys(read.shares||{}).length<1) return { ok:false, msg:"隢撓?乩遢憿??? 1 ?征??N-1 ?芸?鋆??? };
     return { ok:true };
   }
   return { ok:true };
@@ -1750,8 +1758,8 @@ function wizardValidateStep(n){
 ========================= */
 function copyText(text){
   navigator.clipboard?.writeText(text)
-    .then(()=>alert("✅ 已複製 Trip Code"))
-    .catch(()=>prompt("複製此 Trip Code：", text));
+    .then(()=>alert("??撌脰?鋆?Trip Code"))
+    .catch(()=>prompt("銴ˊ甇?Trip Code嚗?, text));
 }
 function renderTripsList(){
   const html = state.trips.map(t=>{
@@ -1760,25 +1768,25 @@ function renderTripsList(){
       <div class="item">
         <div class="topline">
           <div>
-            <div class="title">🧳 ${escapeHtml(t.name)}</div>
+            <div class="title">?妊 ${escapeHtml(t.name)}</div>
             <div class="muted small">
-              Code：<span class="mono">${escapeHtml(t.id)}</span>
-              <br/>成員：${(t.members||[]).map(escapeHtml).join(", ")}
-              <br/>已記錄：<b class="mono">${count}</b> 筆
+              Code嚗?span class="mono">${escapeHtml(t.id)}</span>
+              <br/>?嚗?{(t.members||[]).map(escapeHtml).join(", ")}
+              <br/>撌脰???<b class="mono">${count}</b> 蝑?
             </div>
           </div>
           <div style="min-width:180px; display:flex; flex-direction:column; gap:8px;">
-            <button class="primary" data-action="openTrip" data-trip="${t.id}">進入</button>
-            <button class="ghost" data-action="copyCode" data-trip="${t.id}">📋 複製 Code</button>
+            <button class="primary" data-action="openTrip" data-trip="${t.id}">?脣</button>
+            <button class="ghost" data-action="copyCode" data-trip="${t.id}">?? 銴ˊ Code</button>
           </div>
         </div>
         <div class="row" style="margin-top:10px;">
-          <button class="ghost" data-action="deleteTrip" data-trip="${t.id}">🗑️ 刪除此行程（本機）</button>
+          <button class="ghost" data-action="deleteTrip" data-trip="${t.id}">??儭??芷甇方?蝔??祆?嚗?/button>
         </div>
       </div>
     `;
   }).join("");
-  $("tripsList").innerHTML = html || `<div class="muted">（未有行程）按「新增行程」建立第一個旅行 ✨</div>`;
+  $("tripsList").innerHTML = html || `<div class="muted">嚗??蝔??憓?蝔遣蝡洵銝??銵???/div>`;
 }
 
 /* =========================
@@ -1824,9 +1832,9 @@ function renderShareBlocks(hostId, names, mode){
   const host = $(hostId);
   host.innerHTML = names.map(m=>`
     <div class="splitBox" style="background:#fff; margin-top:0;">
-      <div class="title">${escapeHtml(m)} 份額（原幣）</div>
-      <input class="shareInput" data-name="${escapeHtml(m)}" placeholder="例如：800+600+500=" style="margin-top:8px;" />
-      <textarea class="shareNote" data-name="${escapeHtml(m)}" placeholder="備註（可選）" style="margin-top:8px;"></textarea>
+      <div class="title">${escapeHtml(m)} 隞賡?嚗?撟??</div>
+      <input class="shareInput" data-name="${escapeHtml(m)}" placeholder="靘?嚗?00+600+500=" style="margin-top:8px;" />
+      <textarea class="shareNote" data-name="${escapeHtml(m)}" placeholder="?酉嚗?賂?" style="margin-top:8px;"></textarea>
     </div>
   `).join("");
 }
@@ -1847,8 +1855,8 @@ function readSharesWithNMinus1({ amountTotal, names, hostId }){
 
     if(raw == null || String(raw).trim()===""){ blanks.push(n); continue; }
     if(v == null){ blanks.push(n); continue; }
-    if(Number.isNaN(v)) return { ok:false, error:`${n} 份額算式錯誤`, shares:null, shareNotes:null, nminus1:null };
-    if(v < 0) return { ok:false, error:`${n} 份額不可為負數`, shares:null, shareNotes:null, nminus1:null };
+    if(Number.isNaN(v)) return { ok:false, error:`${n} 隞賡?蝞??航炊`, shares:null, shareNotes:null, nminus1:null };
+    if(v < 0) return { ok:false, error:`${n} 隞賡?銝?箄??節, shares:null, shareNotes:null, nminus1:null };
 
     shares[n] = round2(v);
     sumKnown += v;
@@ -1858,7 +1866,7 @@ function readSharesWithNMinus1({ amountTotal, names, hostId }){
   if(blanks.length === 1 && amountTotal > 0){
     const last = blanks[0];
     const remain = round2(amountTotal - sumKnown);
-    if(remain < 0) return { ok:false, error:`已填份額總和（${round2(sumKnown)}）大於總額（${amountTotal}）`, shares:null, shareNotes:null, nminus1:null };
+    if(remain < 0) return { ok:false, error:`撌脣‵隞賡?蝮賢?嚗?{round2(sumKnown)}嚗之?潛蜇憿?${amountTotal}嚗, shares:null, shareNotes:null, nminus1:null };
     shares[last] = remain;
     nminus1 = { filled:last, value:remain };
   }
@@ -1871,21 +1879,21 @@ function updateMathHintAdd(){
   if(!hintEl) return;
 
   const r = readSharesWithNMinus1({ amountTotal: amount, names, hostId:"shareInputs" });
-  if(!amount || amount<=0){ hintEl.textContent = "提示：先輸入總額，再填份額（最後一位可留空用 N-1 自動補）。"; return; }
-  if(!r.ok){ hintEl.innerHTML = `<span class="warnText">⚠️ ${escapeHtml(r.error)}</span>`; return; }
+  if(!amount || amount<=0){ hintEl.textContent = "?內嚗?頛詨蝮賡?嚗?憛思遢憿??敺?雿?征??N-1 ?芸?鋆???; return; }
+  if(!r.ok){ hintEl.innerHTML = `<span class="warnText">?? ${escapeHtml(r.error)}</span>`; return; }
 
   const sum = Object.values(r.shares||{}).reduce((a,b)=>a+safeNum(b),0);
   const blanksCount = names.filter(n=> !(r.shares && Object.prototype.hasOwnProperty.call(r.shares,n)) ).length;
 
   if(r.nminus1){
-    hintEl.innerHTML = `✅ N-1：已自動補 <b>${escapeHtml(r.nminus1.filled)}</b> = <b class="mono">${r.nminus1.value}</b>`;
+    hintEl.innerHTML = `??N-1嚗歇?芸?鋆?<b>${escapeHtml(r.nminus1.filled)}</b> = <b class="mono">${r.nminus1.value}</b>`;
   }else if(blanksCount>0){
-    hintEl.textContent = `提示：仍有 ${blanksCount} 位未填；若只剩 1 位未填，會自動補尾數。`;
+    hintEl.textContent = `?內嚗???${blanksCount} 雿憛恬??亙??1 雿憛恬????撠暹?;
   }else{
     const diff = round2(amount - sum);
     hintEl.innerHTML = Math.abs(diff) < 0.01
-      ? `✅ 份額總和 = 總額（${amount}）`
-      : `⚠️ 份額總和 <b>${round2(sum)}</b> ≠ 總額 <b>${amount}</b>（差額 ${diff}）`;
+      ? `??隞賡?蝮賢? = 蝮賡?嚗?{amount}嚗
+      : `?? 隞賡?蝮賢? <b>${round2(sum)}</b> ??蝮賡? <b>${amount}</b>嚗榆憿?${diff}嚗;
   }
 }
 function updateMathHintEdit(){
@@ -1895,21 +1903,21 @@ function updateMathHintEdit(){
   if(!hintEl) return;
 
   const r = readSharesWithNMinus1({ amountTotal: amount, names, hostId:"edShares" });
-  if(!amount || amount<=0){ hintEl.textContent = "提示：先輸入總額，再填份額（最後一位可留空用 N-1 自動補）。"; return; }
-  if(!r.ok){ hintEl.innerHTML = `<span class="warnText">⚠️ ${escapeHtml(r.error)}</span>`; return; }
+  if(!amount || amount<=0){ hintEl.textContent = "?內嚗?頛詨蝮賡?嚗?憛思遢憿??敺?雿?征??N-1 ?芸?鋆???; return; }
+  if(!r.ok){ hintEl.innerHTML = `<span class="warnText">?? ${escapeHtml(r.error)}</span>`; return; }
 
   const sum = Object.values(r.shares||{}).reduce((a,b)=>a+safeNum(b),0);
   const blanksCount = names.filter(n=> !(r.shares && Object.prototype.hasOwnProperty.call(r.shares,n)) ).length;
 
   if(r.nminus1){
-    hintEl.innerHTML = `✅ N-1：已自動補 <b>${escapeHtml(r.nminus1.filled)}</b> = <b class="mono">${r.nminus1.value}</b>`;
+    hintEl.innerHTML = `??N-1嚗歇?芸?鋆?<b>${escapeHtml(r.nminus1.filled)}</b> = <b class="mono">${r.nminus1.value}</b>`;
   }else if(blanksCount>0){
-    hintEl.textContent = `提示：仍有 ${blanksCount} 位未填；若只剩 1 位未填，會自動補尾數。`;
+    hintEl.textContent = `?內嚗???${blanksCount} 雿憛恬??亙??1 雿憛恬????撠暹?;
   }else{
     const diff = round2(amount - sum);
     hintEl.innerHTML = Math.abs(diff) < 0.01
-      ? `✅ 份額總和 = 總額（${amount}）`
-      : `⚠️ 份額總和 <b>${round2(sum)}</b> ≠ 總額 <b>${amount}</b>（差額 ${diff}）`;
+      ? `??隞賡?蝮賢? = 蝮賡?嚗?{amount}嚗
+      : `?? 隞賡?蝮賢? <b>${round2(sum)}</b> ??蝮賡? <b>${amount}</b>嚗榆憿?${diff}嚗;
   }
 }
 
@@ -1928,29 +1936,29 @@ async function renderAllOverview(){
   const fx = getBaseToDisplayRate(trip);
   if(fx.ok){
     $("tripTotalDispAll").value = `${round2(built.tripTotal * fx.rate)} ${fx.disp}`;
-    $("tripFxWarnAll").textContent = `換算匯率：1 ${trip.baseCurrency} = ${fx.rate} ${fx.disp}`;
+    $("tripFxWarnAll").textContent = `???舐?嚗? ${trip.baseCurrency} = ${fx.rate} ${fx.disp}`;
   }else{
-    $("tripTotalDispAll").value = `— ${trip.displayCurrency}`;
-    $("tripFxWarnAll").innerHTML = `<span class="warnText">⚠️ 未設定換算匯率</span>：${trip.baseCurrency}→${trip.displayCurrency}`;
+    $("tripTotalDispAll").value = `??${trip.displayCurrency}`;
+    $("tripFxWarnAll").innerHTML = `<span class="warnText">?? ?芾身摰?蝞??/span>嚗?{trip.baseCurrency}??{trip.displayCurrency}`;
   }
 
   $("peopleFxHint").textContent = fx.ok
-    ? `換算參考：1 ${trip.baseCurrency} = ${fx.rate} ${fx.disp}`
-    : `換算參考：未設定換算匯率（只顯示基準貨幣）`;
+    ? `????1 ${trip.baseCurrency} = ${fx.rate} ${fx.disp}`
+    : `?????芾身摰?蝞???芷＊蝷箏皞疏撟??`;
 
   $("peopleSummaryAll").innerHTML = trip.members.map(m=>{
     const v = netMap[m];
-    const tag = v>0 ? "別人欠你" : (v<0 ? "你欠別人" : "已打平");
+    const tag = v>0 ? "?乩犖甈?" : (v<0 ? "雿??乩犖" : "撌脫?撟?);
     const disp = fx.ok ? round2(v * fx.rate) : null;
     return `
       <div class="item">
         <div class="topline">
           <div>
-            <div class="title">🧸 ${escapeHtml(m)}</div>
-            <div class="muted small">${tag}：<b class="mono">${v}</b> ${trip.baseCurrency}${disp!=null ? ` · <b>${disp}</b> ${fx.disp}` : ""}</div>
+            <div class="title">?孛 ${escapeHtml(m)}</div>
+            <div class="muted small">${tag}嚗?b class="mono">${v}</b> ${trip.baseCurrency}${disp!=null ? ` 繚 <b>${disp}</b> ${fx.disp}` : ""}</div>
           </div>
           <div style="min-width:160px;">
-            <button class="ghost" data-action="jumpPerson" data-person="${escapeHtml(m)}">查看此人</button>
+            <button class="ghost" data-action="jumpPerson" data-person="${escapeHtml(m)}">?亦?甇支犖</button>
           </div>
         </div>
       </div>
@@ -1975,44 +1983,44 @@ async function renderAllList(){
 
   const catInfo = catLabel(pickCat);
   $("allCatHint").textContent = pickCat==="ALL"
-    ? `顯示：全部分類（${exps.length} 筆）`
-    : `顯示：${catInfo.emoji} ${catInfo.name}（${exps.length} 筆）`;
+    ? `憿舐內嚗?典?憿?${exps.length} 蝑?`
+    : `憿舐內嚗?{catInfo.emoji} ${catInfo.name}嚗?{exps.length} 蝑?`;
 
-  $("allSearchHint").textContent = kw ? `已搜尋：${exps.length} 筆（${kw}）` : "";
+  $("allSearchHint").textContent = kw ? `撌脫?撠?${exps.length} 蝑?${kw}嚗 : "";
 
   const html = exps.map(ex=>{
     const baseAmt = round2(ex.fxBase?.baseAmount ?? ex.amount);
-    const warn = ex.fxBase?.warn ? `<span class="warnText">⚠️</span>` : "";
+    const warn = ex.fxBase?.warn ? `<span class="warnText">??</span>` : "";
     const sharesHtml = Object.entries(ex.shares||{}).map(([k,v])=>`${escapeHtml(k)}: ${escapeHtml(v)}${escapeHtml(ex.currency)}`).join("<br/>") || "-";
     const rc = (ex.receipts||[]).length;
 
-    const c = getCatById(ex.categoryId) || { emoji:"🏷️", name:"分類" };
+    const c = getCatById(ex.categoryId) || { emoji:"?儭?, name:"??" };
 
     return `
       <div class="item">
         <div class="topline">
           <div>
-            <div class="title">${escapeHtml(c.emoji||"🏷️")} ${escapeHtml(ex.title || "(未命名)")} ${warn}</div>
-            <div class="muted small">${escapeHtml(ex.date||"")} · 分類:${escapeHtml(c.name||"")} · 付款方:${escapeHtml(ex.payer||"")}</div>
+            <div class="title">${escapeHtml(c.emoji||"?儭?)} ${escapeHtml(ex.title || "(?芸??")} ${warn}</div>
+            <div class="muted small">${escapeHtml(ex.date||"")} 繚 ??:${escapeHtml(c.name||"")} 繚 隞狡??${escapeHtml(ex.payer||"")}</div>
           </div>
           <span class="pill">${baseAmt} ${trip.baseCurrency}</span>
         </div>
 
         <div class="muted small" style="margin-top:8px;">
-          金額：${ex.amount} ${ex.currency}
-          <br/>每人應付：<br/>${sharesHtml}
+          ??嚗?{ex.amount} ${ex.currency}
+          <br/>瘥犖??嚗?br/>${sharesHtml}
         </div>
 
         ${receiptsThumbsHtml(ex.receipts)}
 
         <div class="row" style="margin-top:10px;">
-          <button class="ghost" data-action="editExpense" data-expense="${ex.id}">✏️ 編輯（同步）</button>
-          <button class="danger" data-action="deleteExpense" data-expense="${ex.id}">🗑️ 刪除（同步）</button>
+          <button class="ghost" data-action="editExpense" data-expense="${ex.id}">?? 蝺刻摩嚗?甇伐?</button>
+          <button class="danger" data-action="deleteExpense" data-expense="${ex.id}">??儭??芷嚗?甇伐?</button>
         </div>
       </div>
     `;
   });
-  $("allList").innerHTML = html.join("") || `<div class="muted">未有消費記錄。</div>`;
+  $("allList").innerHTML = html.join("") || `<div class="muted">?芣?瘨祥閮???/div>`;
   setCatTotals_AllUI();
 }
 
@@ -2022,39 +2030,39 @@ async function renderPersonPage(name){
   const fx = getBaseToDisplayRate(trip, dispCur);
 
   $("personFxWarn").innerHTML = fx.ok
-    ? `換算匯率：1 ${trip.baseCurrency} = <b class="mono">${fx.rate}</b> ${dispCur}`
-    : `<span class="warnText">⚠️ 未設定換算匯率</span>：${trip.baseCurrency}→${dispCur}`;
+    ? `???舐?嚗? ${trip.baseCurrency} = <b class="mono">${fx.rate}</b> ${dispCur}`
+    : `<span class="warnText">?? ?芾身摰?蝞??/span>嚗?{trip.baseCurrency}??{dispCur}`;
 
   const personTotalBase = calcPersonShareTotalBase(trip.id, name);
   $("personTotalBase").value = `${personTotalBase} ${trip.baseCurrency}`;
-  $("personTotalDisp").value = fx.ok ? `${round2(personTotalBase * fx.rate)} ${dispCur}` : `— ${dispCur}`;
+  $("personTotalDisp").value = fx.ok ? `${round2(personTotalBase * fx.rate)} ${dispCur}` : `??${dispCur}`;
 
   const built = buildIOUsForTripBase(trip.id);
   const netted = netIOUs(built.ious);
 
   const relIOU = built.ious.filter(x=> x.from===name || x.to===name);
-  $("iouHint").textContent = `（逐單欠款：只顯示 ${name} 有關）`;
+  $("iouHint").textContent = `嚗甈狡嚗憿舐內 ${name} ??嚗;
   $("iouList").innerHTML = relIOU.map(x=>{
     const disp = fx.ok ? round2(x.amountBase * fx.rate) : null;
     return `
       <div class="item">
-        <div class="title">👉 ${escapeHtml(x.from)} 要付給 ${escapeHtml(x.to)}</div>
-        <div class="muted small">${escapeHtml(x.date)} · ${escapeHtml(x.title)}</div>
-        <div class="muted small">金額：<b class="mono">${round2(x.amountBase)}</b> ${trip.baseCurrency}${disp!=null ? ` · <b>${disp}</b> ${dispCur}` : ""}</div>
+        <div class="title">?? ${escapeHtml(x.from)} 閬?蝯?${escapeHtml(x.to)}</div>
+        <div class="muted small">${escapeHtml(x.date)} 繚 ${escapeHtml(x.title)}</div>
+        <div class="muted small">??嚗?b class="mono">${round2(x.amountBase)}</b> ${trip.baseCurrency}${disp!=null ? ` 繚 <b>${disp}</b> ${dispCur}` : ""}</div>
       </div>
     `;
-  }).join("") || `<div class="muted">（沒有逐單欠款）</div>`;
+  }).join("") || `<div class="muted">嚗??甈狡嚗?/div>`;
 
   const relNet = netted.filter(t=> t.from===name || t.to===name);
   $("personNetList").innerHTML = relNet.map(t=>{
     const disp = fx.ok ? round2(t.amountBase * fx.rate) : null;
     return `
       <div class="item">
-        <div class="title">✅ ${escapeHtml(t.from)} 付給 ${escapeHtml(t.to)}</div>
-        <div class="muted small">金額：<b class="mono">${t.amountBase}</b> ${trip.baseCurrency}${disp!=null ? ` · <b>${disp}</b> ${dispCur}` : ""}</div>
+        <div class="title">??${escapeHtml(t.from)} 隞策 ${escapeHtml(t.to)}</div>
+        <div class="muted small">??嚗?b class="mono">${t.amountBase}</b> ${trip.baseCurrency}${disp!=null ? ` 繚 <b>${disp}</b> ${dispCur}` : ""}</div>
       </div>
     `;
-  }).join("") || `<div class="muted">（暫時無需要結算）</div>`;
+  }).join("") || `<div class="muted">嚗??閬?蝞?</div>`;
 
   const pickCat = state.filters.personCategoryId || "ALL";
   const exps = getTripExpenses(trip.id);
@@ -2069,7 +2077,7 @@ async function renderPersonPage(name){
     const hasShare = ex.shares && Object.prototype.hasOwnProperty.call(ex.shares, name) && safeNum(ex.shares[name]) > 0;
     if(!(inParticipants && hasShare)) continue;
 
-    const cat = getCatById(ex.categoryId) || { emoji:"🏷️", name:"分類" };
+    const cat = getCatById(ex.categoryId) || { emoji:"?儭?, name:"??" };
 
     const baseAmt = round2(ex.fxBase?.baseAmount ?? ex.amount);
     const shareBase = round2(safeNum(ex.shares[name]) * safeNum(ex.fxBase?.rateBase ?? 1));
@@ -2080,15 +2088,15 @@ async function renderPersonPage(name){
       <div class="item">
         <div class="topline">
           <div>
-            <div class="title">${escapeHtml(cat.emoji||"🏷️")} ${escapeHtml(ex.title || "(未命名)")}</div>
-            <div class="muted small">分類：${escapeHtml(cat.name||"")} </div>
+            <div class="title">${escapeHtml(cat.emoji||"?儭?)} ${escapeHtml(ex.title || "(?芸??")}</div>
+            <div class="muted small">??嚗?{escapeHtml(cat.name||"")} </div>
           </div>
-          <span class="pill">整張單 ${ex.amount} ${ex.currency}</span>
+          <span class="pill">?游撐??${ex.amount} ${ex.currency}</span>
         </div>
         <div class="muted small" style="margin-top:10px;">
-          整張帳單（基準）：<b>${baseAmt}</b> ${trip.baseCurrency}
-          <br/>你的份額：<b>${shareBase}</b> ${trip.baseCurrency}${shareDisp!=null ? ` · <b>${shareDisp}</b> ${dispCur}` : ""}
-          ${note ? `<br/>📝 備註：${escapeHtml(note)}` : ""}
+          ?游撐撣喳嚗皞?嚗?b>${baseAmt}</b> ${trip.baseCurrency}
+          <br/>雿?隞賡?嚗?b>${shareBase}</b> ${trip.baseCurrency}${shareDisp!=null ? ` 繚 <b>${shareDisp}</b> ${dispCur}` : ""}
+          ${note ? `<br/>?? ?酉嚗?{escapeHtml(note)}` : ""}
         </div>
         ${receiptsThumbsHtml(ex.receipts)}
       </div>
@@ -2097,10 +2105,10 @@ async function renderPersonPage(name){
 
   const ci = catLabel(pickCat);
   $("personCatHint").textContent = pickCat==="ALL"
-    ? `顯示：全部分類`
-    : `顯示：${ci.emoji} ${ci.name}`;
+    ? `憿舐內嚗?典?憿
+    : `憿舐內嚗?{ci.emoji} ${ci.name}`;
 
-  $("personList").innerHTML = items.join("") || `<div class="muted">（${escapeHtml(name)} 暫時未有任何份額 / 或此分類下沒有）</div>`;
+  $("personList").innerHTML = items.join("") || `<div class="muted">嚗?{escapeHtml(name)} ?急??芣?隞颱?隞賡? / ?迨??銝???</div>`;
   setCatTotals_PersonUI();
 }
 
@@ -2207,7 +2215,7 @@ function buildCSVRowsForTrip(trip){
   rows.push(["Date","Category","Title","Payer","Participants","Amount(Orig)","Currency(Orig)","Total(Base)","Shares(Orig by person)","Notes(by person)","ReceiptsCount"]);
   for(const ex of exps){
     const baseAmt = round2(ex.fxBase?.baseAmount ?? ex.amount);
-    const cat = getCatById(ex.categoryId) || { name:"分類" };
+    const cat = getCatById(ex.categoryId) || { name:"??" };
     const sharesStr = Object.entries(ex.shares||{}).map(([k,v])=>`${k}:${v}`).join(" | ");
     const notesStr = Object.entries(ex.shareNotes||{}).map(([k,v])=>`${k}:${(v||"").replace(/\s+/g," ").trim()}`).join(" | ");
     rows.push([ex.date||"", cat.name||"", ex.title||"", ex.payer||"", (ex.participants||[]).join(", "), ex.amount, ex.currency, baseAmt, sharesStr, notesStr, (ex.receipts||[]).length]);
@@ -2230,7 +2238,7 @@ function buildCSVRowsForPerson(trip, person){
     const shareBase = round2(shareOrig * rateBase);
     const shareDisp = fxDisp.ok ? round2(shareBase * fxDisp.rate) : "";
 
-    const cat = getCatById(ex.categoryId) || { name:"分類" };
+    const cat = getCatById(ex.categoryId) || { name:"??" };
 
     rows.push([
       person, ex.date||"", cat.name||"", ex.title||"", ex.payer||"",
@@ -2278,7 +2286,7 @@ function getSelectedEdParticipants(){
 function renderExistingReceiptsForEdit(ex){
   const list = (ex.receipts || []);
   if(!list.length){
-    $("edReceiptExisting").innerHTML = `<div class="muted small">（無現有收據）</div>`;
+    $("edReceiptExisting").innerHTML = `<div class="muted small">嚗?暹??嗆?嚗?/div>`;
     return;
   }
   $("edReceiptExisting").innerHTML = list.map((r)=>{
@@ -2289,7 +2297,7 @@ function renderExistingReceiptsForEdit(ex){
         <img src="${escapeHtml(u)}" alt="receipt">
         <div>
           <div class="small mono" style="max-width:320px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(r.name||"receipt")}</div>
-          <label class="small" style="margin:0;"><input type="checkbox" class="edDelReceipt" data-path="${escapeHtml(p)}"> 刪除此收據</label>
+          <label class="small" style="margin:0;"><input type="checkbox" class="edDelReceipt" data-path="${escapeHtml(p)}"> ?芷甇斗??/label>
         </div>
       </div>
     `;
@@ -2301,7 +2309,7 @@ function renderExistingReceiptsForEdit(ex){
       if(!path) return;
       if(chk.checked) editCtx.removedReceiptPaths.add(path);
       else editCtx.removedReceiptPaths.delete(path);
-      $("edReceiptHint").textContent = editCtx.removedReceiptPaths.size ? `準備刪除 ${editCtx.removedReceiptPaths.size} 張現有收據` : "";
+      $("edReceiptHint").textContent = editCtx.removedReceiptPaths.size ? `皞??芷 ${editCtx.removedReceiptPaths.size} 撘萇?? : "";
     };
   });
 }
@@ -2356,8 +2364,8 @@ async function openEditExpense(expenseId){
   $("edSplitEvenBtn").onclick = ()=>{
     const amount = safeNum($("edAmount").value);
     const ps = getSelectedEdParticipants();
-    if(ps.length<1){ alert("請先勾選參與者"); return; }
-    if(amount<=0){ alert("請先輸入金額"); return; }
+    if(ps.length<1){ alert("隢??暸????); return; }
+    if(amount<=0){ alert("隢?頛詨??"); return; }
     const each = amount / ps.length;
     $("edShares").querySelectorAll(".shareInput").forEach(inp=> inp.value = String(round2(each)));
     updateMathHintEdit();
@@ -2373,7 +2381,7 @@ async function openEditExpense(expenseId){
   renderExistingReceiptsForEdit(ex);
   $("edReceipts").value = "";
   $("edReceiptHint").textContent = "";
-  $("editHint").textContent = `原有收據 ${ (ex.receipts||[]).length } 張；勾選可刪除。`;
+  $("editHint").textContent = `???嗆? ${ (ex.receipts||[]).length } 撘蛛??暸?臬?扎;
 
   openEditModal();
 }
@@ -2397,13 +2405,13 @@ async function saveEditExpense(){
   const payer = $("edPayer").value;
 
   const participants = getSelectedEdParticipants();
-  if(amount<=0){ alert("請輸入金額"); return; }
-  if(participants.length<1){ alert("請勾選最少 1 位參與者"); return; }
+  if(amount<=0){ alert("隢撓?仿?憿?); return; }
+  if(participants.length<1){ alert("隢?豢?撠?1 雿???); return; }
 
   const read = readSharesWithNMinus1({ amountTotal: amount, names: participants, hostId:"edShares" });
   if(!read.ok){ alert(read.error); return; }
   if(!Object.keys(read.shares||{}).length){
-    alert("請輸入份額（可留 1 個空用 N-1 自動補 / 或用平均分配）");
+    alert("隢撓?乩遢憿??舐? 1 ?征??N-1 ?芸?鋆?/ ?撟喳???嚗?);
     return;
   }
 
@@ -2418,13 +2426,13 @@ async function saveEditExpense(){
   const newFiles = Array.from($("edReceipts")?.files || []);
   let newReceipts = [];
   if(newFiles.length){
-    $("edReceiptHint").textContent = `⏳ 正在上傳 ${newFiles.length} 張新收據…`;
+    $("edReceiptHint").textContent = `??甇?銝 ${newFiles.length} 撘菜?嗆??圳;
     try{
       newReceipts = await uploadReceiptsToStorage({ tripId: trip.id, expenseId: ex.id, files: newFiles });
-      $("edReceiptHint").textContent = `✅ 已上傳 ${newReceipts.length} 張新收據`;
+      $("edReceiptHint").textContent = `??撌脖???${newReceipts.length} 撘菜?嗆?`;
     }catch(err){
       console.error(err);
-      alert("⚠️ 新收據上傳失敗（請檢查 Storage policy）");
+      alert("?? ?唳???喳仃??隢炎??Storage policy嚗?);
       return;
     }
   }
@@ -2448,7 +2456,7 @@ async function saveEditExpense(){
 
   await recalcAndRepaintAll();
   closeEditModal();
-  alert("✅ 已保存修改（同步完成）");
+  alert("??撌脖?摮耨?對??郊摰?嚗?);
 }
 
 async function deleteEditExpense(){
@@ -2461,7 +2469,7 @@ async function deleteEditExpense(){
   const ex = exps.find(x=>x.id===expenseId);
   if(!ex) return;
 
-  if(!confirm("確定刪除此筆？（同步）")) return;
+  if(!confirm("蝣箏??芷甇斤?嚗??郊嚗?)) return;
 
   const paths = (ex.receipts||[]).map(r=>r.path).filter(Boolean);
   await deleteReceiptPaths(paths);
@@ -2472,7 +2480,7 @@ async function deleteEditExpense(){
 
   await recalcAndRepaintAll();
   closeEditModal();
-  alert("🗑️ 已刪除（同步完成）");
+  alert("??儭?撌脣?歹??郊摰?嚗?);
 }
 
 /* =========================
@@ -2504,18 +2512,18 @@ function renderCategoryManager(){
       <div class="catLine">
         <div style="flex:0 0 120px;">
           <label>Emoji</label>
-          <input class="catEmojiInp" data-id="${escapeHtml(c.id)}" value="${escapeHtml(c.emoji||"🏷️")}" />
+          <input class="catEmojiInp" data-id="${escapeHtml(c.id)}" value="${escapeHtml(c.emoji||"?儭?)}" />
         </div>
         <div style="flex:1 1 260px;">
-          <label>名稱</label>
-          <input class="catNameInp" data-id="${escapeHtml(c.id)}" value="${escapeHtml(c.name||"分類")}" />
+          <label>?迂</label>
+          <input class="catNameInp" data-id="${escapeHtml(c.id)}" value="${escapeHtml(c.name||"??")}" />
         </div>
         <div style="flex:0 0 auto;">
-          <button class="danger btnSmall" data-action="delCat" data-id="${escapeHtml(c.id)}">刪除</button>
+          <button class="danger btnSmall" data-action="delCat" data-id="${escapeHtml(c.id)}">?芷</button>
         </div>
       </div>
     `;
-  }).join("") || `<div class="muted small">（未有分類）</div>`;
+  }).join("") || `<div class="muted small">嚗??憿?</div>`;
 }
 
 $("openSettingsBtn").addEventListener("click", openSettings);
@@ -2526,10 +2534,10 @@ $("saveSettingsBtn").addEventListener("click", async ()=>{
   ensureDefaultPrefs();
 
   state.uiPrefs.tabs = {
-    trips: { emoji: $("setEmojiTrips").value || "🧳", label: $("setLabelTrips").value || "行程" },
-    add: { emoji: $("setEmojiAdd").value || "🍰", label: $("setLabelAdd").value || "新增" },
-    person: { emoji: $("setEmojiPerson").value || "🧸", label: $("setLabelPerson").value || "個人" },
-    all: { emoji: $("setEmojiAll").value || "🧁", label: $("setLabelAll").value || "全部" },
+    trips: { emoji: $("setEmojiTrips").value || "?妊", label: $("setLabelTrips").value || "銵?" },
+    add: { emoji: $("setEmojiAdd").value || "?", label: $("setLabelAdd").value || "?啣?" },
+    person: { emoji: $("setEmojiPerson").value || "?孛", label: $("setLabelPerson").value || "?犖" },
+    all: { emoji: $("setEmojiAll").value || "??", label: $("setLabelAll").value || "?券" },
   };
 
   // apply category edits
@@ -2538,13 +2546,13 @@ $("saveSettingsBtn").addEventListener("click", async ()=>{
     const id = inp.dataset.id;
     const v = inp.value.trim();
     const idx = cats.findIndex(x=>x.id===id);
-    if(idx>=0) cats[idx].emoji = v || "🏷️";
+    if(idx>=0) cats[idx].emoji = v || "?儭?;
   });
   document.querySelectorAll(".catNameInp").forEach(inp=>{
     const id = inp.dataset.id;
     const v = inp.value.trim();
     const idx = cats.findIndex(x=>x.id===id);
-    if(idx>=0) cats[idx].name = v || "分類";
+    if(idx>=0) cats[idx].name = v || "??";
   });
 
   // make sure unique ids & not empty
@@ -2554,16 +2562,16 @@ $("saveSettingsBtn").addEventListener("click", async ()=>{
     const id = c.id || normalizeCatId(c.name);
     if(used.has(id)) continue;
     used.add(id);
-    cleaned.push({ id, emoji: c.emoji || "🏷️", name: c.name || "分類" });
+    cleaned.push({ id, emoji: c.emoji || "?儭?, name: c.name || "??" });
   }
-  state.uiPrefs.categories = cleaned.length ? cleaned : [{ id:"other", emoji:"🧩", name:"其他" }];
+  state.uiPrefs.categories = cleaned.length ? cleaned : [{ id:"other", emoji:"?妝", name:"?嗡?" }];
 
   await saveState();
   applyTabPrefs();
 
   // rebuild category tabs + selects immediately
   await refreshTripUI();
-  alert("✅ 已保存設定（分類分頁已更新）");
+  alert("??撌脖?摮身摰?????撌脫?堆?");
   closeSettings();
 });
 
@@ -2578,13 +2586,13 @@ $("resetSettingsBtn").addEventListener("click", async ()=>{
 
 $("addCatBtn").addEventListener("click", async ()=>{
   ensureDefaultPrefs();
-  const emo = ($("newCatEmoji").value || "").trim() || "🏷️";
+  const emo = ($("newCatEmoji").value || "").trim() || "?儭?;
   const name = ($("newCatName").value || "").trim();
-  if(!name){ alert("請輸入分類名稱"); return; }
+  if(!name){ alert("隢撓?亙?憿?蝔?); return; }
 
   const id = normalizeCatId(name);
   if(getCategories().some(c=>c.id===id)){
-    alert("已有同名（或同 id）分類，請改名"); return;
+    alert("撌脫???嚗???id嚗?憿?隢??); return;
   }
 
   state.uiPrefs.categories.push({ id, emoji: emo, name });
@@ -2601,10 +2609,10 @@ document.addEventListener("click", async (e)=>{
 
   const id = btn.dataset.id;
   if(!id) return;
-  if(!confirm("確定刪除此分類？\n（注意：屬於此分類的消費會自動轉去「其他」）")) return;
+  if(!confirm("蝣箏??芷甇文?憿?\n嚗釣??撅祆甇文?憿?瘨祥????颯隞?")) return;
 
   const cats = getCategories().filter(c=>c.id!==id);
-  state.uiPrefs.categories = cats.length ? cats : [{ id:"other", emoji:"🧩", name:"其他" }];
+  state.uiPrefs.categories = cats.length ? cats : [{ id:"other", emoji:"?妝", name:"?嗡?" }];
 
   // migrate expenses categoryId -> other
   const trip = getActiveTrip();
@@ -2645,7 +2653,7 @@ $("createImportInput").addEventListener("change", async ()=>{
   // for simplicity: keep your base/display manual; you can still adjust after create
   state.draftImport = { csvText:text };
   await saveState();
-  $("createImportHint").innerHTML = `✅ 已讀入 CSV（將在建立行程後匯入成消費清單）`;
+  $("createImportHint").innerHTML = `??撌脰???CSV嚗??典遣蝡?蝔??臬??鞎餅??殷?`;
   $("createImportInput").value = "";
 });
 
@@ -2654,7 +2662,7 @@ $("createTripBtn").addEventListener("click", async ()=>{
   const baseCurrency = $("baseCurrency").value;
   const displayCurrency = $("displayCurrency").value;
   const members = $("members").value.split(",").map(s=>s.trim()).filter(Boolean);
-  if(members.length < 1){ alert("請輸入最少 1 位成員"); return; }
+  if(members.length < 1){ alert("隢撓?交?撠?1 雿???); return; }
 
   const t = { id: uid(), name, baseCurrency, displayCurrency, members: uniq(members) };
   state.trips.push(t);
@@ -2674,14 +2682,14 @@ $("createTripBtn").addEventListener("click", async ()=>{
   await saveState();
 
   try{
-    setSyncHint("⏳ 建立行程並連線同步...");
+    setSyncHint("??撱箇?銵?銝阡???郊...");
     await sbEnsureTripRows(t);
     await sbReplaceAllExpenses(t.id, getTripExpenses(t.id));
     await sbUpsertFx(t.id);
     await sbSubscribeTrip(t.id);
   }catch(e){
     console.error(e);
-    alert("⚠️ Supabase 同步失敗（請檢查 RLS、Realtime、表名）");
+    alert("?? Supabase ?郊憭望?嚗?瑼Ｘ RLS?ealtime?”??");
   }
 
   $("exDate").value = todayISO();
@@ -2690,9 +2698,9 @@ $("createTripBtn").addEventListener("click", async ()=>{
 
 $("joinTripBtn").addEventListener("click", async ()=>{
   const code = ($("joinCode").value || "").trim();
-  if(!code){ alert("請輸入 Trip Code"); return; }
+  if(!code){ alert("隢撓??Trip Code"); return; }
   try{
-    setSyncHint("⏳ 正在加入並拉取資料...");
+    setSyncHint("??甇??銝行?????..");
     await sbPullTripBundle(code);
     state.activeTripId = code;
     ensureTripUI(code);
@@ -2702,7 +2710,7 @@ $("joinTripBtn").addEventListener("click", async ()=>{
     await setTab("add");
   }catch(e){
     console.error(e);
-    alert("⚠️ 加入失敗：找不到此 Trip Code / 或 Supabase 設定未完成");
+    alert("?? ?憭望?嚗銝甇?Trip Code / ??Supabase 閮剖??芸???);
   }
 });
 
@@ -2724,12 +2732,12 @@ $("refreshBtn").addEventListener("click", async ()=>{
     await sbReplaceAllExpenses(trip.id, getTripExpenses(trip.id));
   }
   await recalcAndRepaintAll();
-  alert("🔄 已重新計算 / 更新");
+  alert("?? 撌脤??啗?蝞?/ ?湔");
 });
 
 $("wipeTripBtn").addEventListener("click", async ()=>{
   const trip = getActiveTrip(); if(!trip) return;
-  if(!confirm("確定清空此行程所有消費？（同步，不可復原）")) return;
+  if(!confirm("蝣箏?皜征甇方?蝔???鞎鳴?嚗?甇伐?銝敺拙?嚗?)) return;
 
   const paths = collectTripReceiptPaths(trip.id);
   await deleteReceiptPaths(paths);
@@ -2744,7 +2752,7 @@ document.querySelectorAll("[data-tab]").forEach(btn=>{
   btn.addEventListener("click", async ()=>{
     const tab = btn.dataset.tab;
     if(tab==="trips"){ await setTab("trips"); return; }
-    if(!getActiveTrip()){ alert("請先建立或加入一個行程～"); return; }
+    if(!getActiveTrip()){ alert("隢?撱箇????乩???蝔?"); return; }
     await setTab(tab);
   });
 });
@@ -2764,7 +2772,7 @@ document.addEventListener("click", async (e)=>{
   if(act==="openTrip"){
     const id = btn.dataset.trip;
     try{
-      setSyncHint("⏳ 正在拉取同步資料...");
+      setSyncHint("??甇????郊鞈?...");
       await sbPullTripBundle(id);
       state.activeTripId = id;
       ensureTripUI(id);
@@ -2774,14 +2782,14 @@ document.addEventListener("click", async (e)=>{
       await setTab("add");
     }catch(e){
       console.error(e);
-      alert("⚠️ 打開失敗：請檢查 Supabase / Realtime / RLS");
+      alert("?? ??憭望?嚗?瑼Ｘ Supabase / Realtime / RLS");
     }
     return;
   }
 
   if(act==="deleteTrip"){
     const id = btn.dataset.trip;
-    if(!confirm("只會刪除本機快取（雲端仍保留）。確定？")) return;
+    if(!confirm("?芣??芷?祆?敹怠?嚗蝡臭?靽?嚗Ⅱ摰?")) return;
     state.trips = state.trips.filter(t=>t.id!==id);
     delete state.expenses[id];
     delete state.tripUI[id];
@@ -2802,7 +2810,7 @@ document.addEventListener("click", async (e)=>{
   if(act==="deleteExpense"){
     const trip = getActiveTrip(); if(!trip) return;
     const id = btn.dataset.expense;
-    if(!confirm("確定刪除此筆？（同步）")) return;
+    if(!confirm("蝣箏??芷甇斤?嚗??郊嚗?)) return;
 
     const ex = getTripExpenses(trip.id).find(x=>x.id===id);
     const paths = (ex?.receipts||[]).map(r=>r.path).filter(Boolean);
@@ -2846,8 +2854,8 @@ $("exAmount").addEventListener("input", updateMathHintAdd);
 $("splitEvenBtn").addEventListener("click", ()=>{
   const amount = safeNum($("exAmount").value);
   const ps = getSelectedParticipants(".pchk");
-  if(ps.length<1){ alert("請先勾選參與者"); return; }
-  if(amount<=0){ alert("請先輸入原始總額"); return; }
+  if(ps.length<1){ alert("隢??暸????); return; }
+  if(amount<=0){ alert("隢?頛詨??蝮賡?"); return; }
   const each = amount / ps.length;
   $("shareInputs").querySelectorAll(".shareInput").forEach(inp=> inp.value = String(round2(each)));
   updateMathHintAdd();
@@ -2879,21 +2887,21 @@ $("addExpenseBtn").addEventListener("click", async ()=>{
 
   const fxBase = buildFxBaseCustom(currency, trip, amount);
   $("rateHint").innerHTML = fxBase.warn
-    ? `<span class="warnText">⚠️ 缺少 ${currency}→${trip.baseCurrency} 匯率</span>（暫用 1:1）`
-    : `✅ 此筆匯率：1 ${currency} = <b class="mono">${fxBase.rateBase}</b> ${trip.baseCurrency}`;
+    ? `<span class="warnText">?? 蝻箏? ${currency}??{trip.baseCurrency} ?舐?</span>嚗??1:1嚗
+    : `??甇斤??舐?嚗? ${currency} = <b class="mono">${fxBase.rateBase}</b> ${trip.baseCurrency}`;
 
   const exId = uid();
   const receiptFiles = Array.from($("exReceipts")?.files || []);
-  $("receiptHint").textContent = receiptFiles.length ? `⏳ 準備上傳 ${receiptFiles.length} 張收據…` : "";
+  $("receiptHint").textContent = receiptFiles.length ? `??皞?銝 ${receiptFiles.length} 撘菜?圳 : "";
 
   let receipts = [];
   if(receiptFiles.length){
     try{
       receipts = await uploadReceiptsToStorage({ tripId: trip.id, expenseId: exId, files: receiptFiles });
-      $("receiptHint").textContent = `✅ 已上傳 ${receipts.length} 張`;
+      $("receiptHint").textContent = `??撌脖???${receipts.length} 撘琛;
     }catch(err){
       console.error(err);
-      alert("⚠️ 收據上傳失敗：請檢查 Storage bucket/policy。");
+      alert("?? ?嗆?銝憭望?嚗?瑼Ｘ Storage bucket/policy??);
       return;
     }
   }
@@ -2918,20 +2926,20 @@ $("addExpenseBtn").addEventListener("click", async ()=>{
 
   await recalcAndRepaintAll();
   resetAddForm();
-  alert("✅ 已新增（同步完成）");
+  alert("??撌脫憓??郊摰?嚗?);
 });
 
 /* CSV download */
 $("downloadPersonBtn").addEventListener("click", ()=>{
   const trip = getActiveTrip();
-  if(!trip){ alert("請先進入一個行程～"); return; }
+  if(!trip){ alert("隢??脣銝??蝔?"); return; }
   const person = $("personSelect").value;
-  downloadText(`${trip.name}_${person}_帳單.csv`, rowsToCSV(buildCSVRowsForPerson(trip, person)));
+  downloadText(`${trip.name}_${person}_撣喳.csv`, rowsToCSV(buildCSVRowsForPerson(trip, person)));
 });
 $("downloadTripBtn").addEventListener("click", ()=>{
   const trip = getActiveTrip();
-  if(!trip){ alert("請先進入一個行程～"); return; }
-  downloadText(`${trip.name}_全行程_帳單.csv`, rowsToCSV(buildCSVRowsForTrip(trip)));
+  if(!trip){ alert("隢??脣銝??蝔?"); return; }
+  downloadText(`${trip.name}_?刻?蝔撣喳.csv`, rowsToCSV(buildCSVRowsForTrip(trip)));
 });
 
 /* Edit modal buttons */
@@ -2966,3 +2974,4 @@ $("editDeleteBtn").addEventListener("click", deleteEditExpense);
 </script>
 </body>
 </html>
+
